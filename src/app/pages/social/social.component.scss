@@ -1,0 +1,118 @@
+.social-container {
+  font-family: 'Orbitron', sans-serif;
+  color: white;
+  padding: 2rem;
+
+  h1 {
+    text-align: center;
+    color: cyan;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 10px cyan;
+  }
+
+  .bloque {
+    background: #0d0d1a;
+    border: 2px solid cyan;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 12px cyan;
+
+    h2 {
+      margin-bottom: 1rem;
+      color: cyan;
+      font-size: 1.4rem;
+      border-bottom: 1px solid cyan;
+      padding-bottom: 0.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.6rem;
+      background: black;
+      color: cyan;
+      border: 1px solid cyan;
+      font-family: 'Orbitron';
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      background: transparent;
+      color: cyan;
+      border: 1px solid cyan;
+      font-family: 'Orbitron';
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      margin: 10px;
+
+      &:hover {
+        background-color: cyan;
+        color: black;
+      }
+
+      &.aceptar {
+        border-color: lime;
+        color: lime;
+
+        &:hover {
+          background-color: lime;
+          color: black;
+        }
+      }
+
+      &.rechazar {
+        border-color: red;
+        color: red;
+
+        &:hover {
+          background-color: red;
+          color: black;
+        }
+      }
+    }
+
+    .usuarios-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+
+      .card {
+        background: #10101a;
+        border: 1px solid cyan;
+        border-radius: 10px;
+        padding: 1rem;
+        text-align: center;
+        width: 280px;
+        box-shadow: 0 0 10px cyan;
+
+        img {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          border: 2px solid cyan;
+          margin-bottom: 0.5rem;
+          object-fit: cover;
+        }
+
+        p {
+          margin: 0.5rem 0;
+        }
+
+        .acciones {
+          display: flex;
+          gap: 0.5rem;
+          justify-content: center;
+
+          button {
+            flex: 1;
+          }
+        }
+      }
+    }
+  }
+}

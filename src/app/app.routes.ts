@@ -1,0 +1,38 @@
+import { Routes } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './pages/home/home.component';
+import { AuthGuard } from './auth/auth.guard';
+import { TiendaComponent } from './pages/tienda/tienda.component';
+import { ImportarComponent } from './pages/tienda/importar.component'; // LO AÑADIREMOS AHORA
+import { CrearVideojuegoComponent } from './pages/tienda/crear/crear.component';
+import { DetalleComponent } from './pages/tienda/detalle.component';
+import { BibliotecaComponent } from './pages/biblioteca/biblioteca.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { CodigosComponent } from './pages/codigos/codigos.component';
+
+export const routes: Routes = [
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+
+  { path: 'tienda', component: TiendaComponent },
+  { path: 'tienda/importar', component: ImportarComponent },
+  { path: 'tienda/crear', component: CrearVideojuegoComponent },
+  { path: 'tienda/detalle/:id', component: DetalleComponent },
+  { path: 'biblioteca', component: BibliotecaComponent, canActivate: [AuthGuard] },
+  { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
+  {  path: 'fondos',
+  loadComponent: () => import('./pages/fondos/fondos.component').then(m => m.FondosComponent),
+  canActivate: [AuthGuard]},
+{
+  path: 'social',
+  loadComponent: () => import('./pages/social/social.component').then(m => m.SocialComponent),
+  canActivate: [AuthGuard]
+},
+
+  { path: 'codigos', component: CodigosComponent, canActivate: [AuthGuard] },
+
+
+  // SIEMPRE AL FINAL
+  { path: '**', redirectTo: '', pathMatch: 'full' },
+];
+

@@ -1,0 +1,17 @@
+<div class="fondos-container">
+  <h1>Recargar fondos</h1>
+
+  <div class="form-box">
+    <label for="monto">Introduce el monto a recargar (€):</label>
+    <input type="number" [(ngModel)]="monto" min="1" placeholder="Ej: 10.00" />
+
+    <div id="paypal-button-container"></div>
+
+    <div class="paypal-legal-warning">
+  <p>⚠️ Solo para mayores de 18 años.</p>
+  <p>💸 Usa esta función de forma responsable. No es reembolsable.</p>
+  <p>🔐 Los pagos son procesados de forma segura mediante PayPal.</p>
+</div>
+
+  </div>
+</div>

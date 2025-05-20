@@ -1,0 +1,90 @@
+.login-container {
+  max-width: 450px;
+  margin: 100px auto;
+  padding: 40px;
+  background: #1e1e1e;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 50px rgba(0, 216, 255, 0.5);
+
+  h2 {
+    color: #00d8ff;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  input, select {
+    width: 100%;
+    background-color: #0e0e0e;
+    color: #00d8ff;
+    border: 2px solid #00d8ff;
+    border-radius: 0;
+    padding: 15px;
+    margin-bottom: 25px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    text-align: center;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+  }
+
+  input:focus {
+    box-shadow: 0 0 12px #00d8ff;
+  }
+
+  .btn-success, .btn-primary {
+    background-color: #00d8ff;
+    color: #0e0e0e;
+    border-radius: 0;
+    font-weight: bold;
+    padding: 15px 0;
+    width: 100%;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+
+  .btn-success:disabled {
+    background-color: #555555;
+    color: #aaaaaa;
+  }
+
+  .btn-link {
+    color: #00d8ff;
+    text-decoration: underline;
+    margin-top: 20px;
+    display: inline-block;
+  }
+
+  .alert {
+    margin-top: 20px;
+    border-radius: 0;
+  }
+
+  .navbar-lynx .btn-logout {
+  background-color: #00d8ff;
+  color: #0e0e0e;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: bold;
+  padding: 8px 20px;
+  border-radius: 0;
+  border: none;
+}
+
+.navbar-lynx .badge {
+  background-color: #00d8ff;
+  color: #0e0e0e;
+  font-family: 'Orbitron', sans-serif;
+  margin-left: 15px;
+  padding: 5px 10px;
+  border-radius: 0;
+  font-weight: bold;
+}
+
+}
+

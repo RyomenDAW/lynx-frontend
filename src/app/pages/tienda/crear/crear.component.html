@@ -1,0 +1,43 @@
+<div class="crear-container">
+  <h2>Crear nuevo videojuego</h2>
+
+  <form [formGroup]="juegoForm" (ngSubmit)="crearJuego()">
+    <label>Nombre</label>
+    <input type="text" formControlName="nombre" placeholder="Nombre del videojuego" />
+
+    <label>Descripción</label>
+    <textarea formControlName="descripcion" placeholder="Descripción del videojuego"></textarea>
+
+    <label>Desarrollador</label>
+    <input type="text" formControlName="desarrollador" placeholder="Nombre del desarrollador" />
+
+    <label>Distribuidor</label>
+    <input type="text" formControlName="distribuidor" placeholder="Nombre del distribuidor" />
+
+    <label>Género</label>
+    <input type="text" formControlName="genero" placeholder="Ej: Acción, Aventura" />
+
+    <label>Plataforma</label>
+    <input type="text" formControlName="plataforma" placeholder="Ej: PC, Steam Deck..." />
+
+    <label>Precio (€)</label>
+    <input type="number" formControlName="precio" placeholder="Precio en euros" />
+
+    <label>Fecha de lanzamiento</label>
+    <input type="date" formControlName="fecha_lanzamiento" />
+
+    <label>Requisitos mínimos</label>
+    <textarea formControlName="requisitos_minimos" placeholder="Especificaciones mínimas del sistema"></textarea>
+
+    <label>Requisitos recomendados</label>
+    <textarea formControlName="requisitos_recomendados" placeholder="Especificaciones recomendadas del sistema"></textarea>
+
+    <label>Portada (imagen)</label>
+    <input type="file" (change)="onImageChange($event)" accept="image/*" />
+
+    <button type="submit" [disabled]="juegoForm.invalid">Crear Videojuego</button>
+  </form>
+
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+</div>

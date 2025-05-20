@@ -1,0 +1,31 @@
+<div class="perfil-container" *ngIf="perfil">
+  <div class="perfil-header">
+    <div class="avatar-wrapper">
+      <img [src]="perfil.avatar_base64" alt="Avatar del usuario" />
+      <input type="file" accept="image/*" (change)="cambiarImagen($event)" hidden #fileInput>
+      <button (click)="fileInput.click()">Cambiar imagen</button>
+    </div>
+    <div class="perfil-info-header">
+      <h2>{{ perfil.username }}</h2>
+      <div class="rango">• {{ perfil.rol }} •</div>
+      <div class="bio">WELCOME TO MY PROFILE</div>
+    </div>
+  </div>
+
+  <div class="perfil-content">
+    <div class="section">
+      <h3>Información</h3>
+      <p><span>Nombre:</span> {{ perfil.nombre_completo }}</p>
+      <p><span>Email:</span> {{ perfil.email }}</p>
+      <p><span>Saldo:</span> {{ perfil.saldo_virtual | number:'1.2-2' }} €</p>
+    </div>
+
+    <div class="section" *ngIf="juegoFavorito">
+      <h3>Juego favorito</h3>
+      <div class="juego-box">
+        <p>{{ juegoFavorito.juego.titulo }}</p>
+        <p>{{ juegoFavorito.tiempo_jugado }} minutos jugados</p>
+      </div>
+    </div>
+  </div>
+</div>

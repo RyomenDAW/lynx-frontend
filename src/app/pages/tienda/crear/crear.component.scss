@@ -1,0 +1,85 @@
+.crear-container {
+  padding: 30px;
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
+
+  h2 {
+    color: #00d8ff;
+    text-shadow: 0 0 10px #00d8ff88;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+    background: #111;
+    border: 2px solid #00d8ff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #00d8ff44;
+
+    label {
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    input, textarea, select {
+      padding: 10px 15px;
+      border-radius: 6px;
+      border: 1px solid #00d8ff;
+      background: #000;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      transition: border 0.3s;
+
+      &:focus {
+        outline: none;
+        border-color: #00f2ff;
+        box-shadow: 0 0 8px #00f2ff;
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    input[type="file"] {
+      padding: 5px;
+      color: #ccc;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      input[type="checkbox"] {
+        width: auto;
+        height: auto;
+      }
+    }
+
+    button {
+      background: #00d8ff;
+      color: #000;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
+      transition: background 0.3s, box-shadow 0.3s;
+
+      &:hover {
+        background-color: #00c0e0;
+        box-shadow: 0 0 12px #00eaff;
+      }
+    }
+  }
+}

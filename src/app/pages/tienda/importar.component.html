@@ -1,0 +1,20 @@
+<div class="importar-container">
+  <h2>Importar videojuegos desde Steam</h2>
+
+  <input [(ngModel)]="searchTerm" (keyup.enter)="buscar()" placeholder="Nombre del juego" class="form-control" />
+  <button (click)="buscar()" class="btn btn-neon mt-2">Buscar</button>
+
+  <div *ngIf="loading">Cargando resultados...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div class="resultados mt-4">
+    <div *ngFor="let juego of resultados" class="resultado-card">
+      <img [src]="juego.tiny_image" />
+      <h4>{{ juego.name }}</h4>
+      <p>ID Steam: {{ juego.id }}</p>
+      <!-- luego aquí irá botón para importar -->
+      <button class="btn-importar" (click)="importarJuego(juego)">Importar</button>
+
+    </div>
+  </div>
+</div>

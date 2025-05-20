@@ -1,0 +1,186 @@
+.tienda-container {
+  padding: 30px;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+
+  //=========================================
+  // TÍTULO PRINCIPAL DE LA TIENDA
+  //=========================================
+  .titulo-seccion {
+    color: #00d8ff;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 30px;
+    text-shadow: 0 0 8px #00d8ff88;
+  }
+
+  //=========================================
+  // BOTÓN INDIVIDUAL PARA IMPORTAR (USO EXTRA)
+  //=========================================
+  .btn-importar {
+    background: #00d8ff;
+    color: black;
+    padding: 5px 14px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 0 8px #00d8ff;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: #00bfe0;
+      box-shadow: 0 0 12px #00f2ff;
+    }
+  }
+
+  //=========================================
+  // BOTONES SUPERIORES DE IMPORTAR / CREAR
+  //=========================================
+  .acciones-superior {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+
+    .btn {
+      margin: 0 10px;
+      background-color: #00d8ff;
+      color: #000;
+      padding: 8px 20px;
+      border: none;
+      border-radius: 6px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #00c0e0;
+        box-shadow: 0 0 10px #00f0ff80;
+      }
+    }
+  }
+
+  //=========================================
+  // CONTENEDOR DE LA LISTA DE VIDEOJUEGOS
+  //=========================================
+  .lista-videojuegos {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  //=========================================
+  // BLOQUE DE CADA VIDEOJUEGO
+  //=========================================
+  .fila-juego {
+    display: flex;
+    align-items: center;
+    background: #101010;
+    border: 2px solid #00d8ff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 14px #00d8ff40;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.01);
+    }
+  }
+
+  //=========================================
+  // IMAGEN DEL VIDEOJUEGO
+  //=========================================
+  .juego-portada {
+    width: 220px;
+    height: auto;
+    border-radius: 8px;
+    margin-right: 25px;
+    object-fit: cover;
+    box-shadow: 0 0 12px #00d8ff55;
+  }
+
+  //=========================================
+  // CONTENEDOR DE INFORMACIÓN
+  //=========================================
+  .juego-info {
+    flex: 1;
+
+    h3 {
+      margin: 0 0 10px 0;
+      color: #00d8ff;
+      font-size: 22px;
+    }
+
+    .juego-descripcion {
+      margin-bottom: 15px;
+      text-align: justify;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    //=========================================
+    // BOTONES DE ACCIÓN DE CADA JUEGO
+    //=========================================
+    .juego-botones {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+
+      .btn-secundario {
+        background: transparent;
+        border: 1px solid #00d8ff;
+        color: #00d8ff;
+        padding: 6px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        font-family: 'Orbitron', sans-serif;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: #00d8ff22;
+        }
+      }
+
+      .btn-accion {
+        background: #00d8ff;
+        color: #000;
+        border: none;
+        padding: 6px 20px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-family: 'Orbitron', sans-serif;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: #00bfe0;
+        }
+
+        &:disabled {
+          background: #007a94;
+          color: #eee;
+          cursor: not-allowed;
+        }
+      }
+
+      .btn-eliminar {
+        background-color: #ff0040;
+        color: #fff;
+        border: none;
+        padding: 6px 20px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-family: 'Orbitron', sans-serif;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: #cc0033;
+        }
+      }
+    }
+  }
+}

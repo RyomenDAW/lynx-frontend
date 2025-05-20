@@ -1,0 +1,23 @@
+<div class="detalle-container">
+  <h2>{{ videojuego?.titulo }}</h2>
+
+  <div class="detalle-content">
+    <img [src]="videojuego?.imagen_portada_base64" alt="Portada" class="detalle-imagen" />
+
+    <div class="detalle-info">
+      <p><strong>Género:</strong> {{ videojuego?.genero }}</p>
+      <p><strong>Desarrollador:</strong> {{ videojuego?.desarrollador }}</p>
+      <p><strong>Distribuidor:</strong> {{ videojuego?.distribuidor }}</p>
+      <p><strong>Precio:</strong> {{ videojuego?.precio }} €</p>
+      <p><strong>Plataforma:</strong> {{ videojuego?.plataforma }}</p>
+      <p><strong>Fecha de lanzamiento:</strong> {{ videojuego?.fecha_lanzamiento }}</p>
+      <p><strong>Soporte mando:</strong> {{ videojuego?.soporte_mando ? 'Sí' : 'No' }}</p>
+      <p><strong>Requisitos mínimos:</strong></p>
+      <div [innerHTML]="videojuego?.requisitos_minimos"></div>
+      <p><strong>Requisitos recomendados:</strong></p>
+      <div [innerHTML]="videojuego?.requisitos_recomendados"></div>
+    </div>
+  </div>
+
+  <button routerLink="/tienda" class="btn-volver">Volver a la tienda</button>
+</div>

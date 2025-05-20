@@ -1,0 +1,46 @@
+.fondos-container {
+  font-family: 'Orbitron', sans-serif;
+  color: cyan;
+  padding: 3rem;
+  text-align: center;
+
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-box {
+    background: #111;
+    padding: 2rem;
+    border-radius: 15px;
+    max-width: 400px;
+    margin: auto;
+    box-shadow: 0 0 15px cyan;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.6rem;
+      font-family: 'Orbitron';
+      background: #000;
+      color: cyan;
+      border: 1px solid cyan;
+      margin-bottom: 1rem;
+    }
+
+        .paypal-legal-warning {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: #ccc;
+
+    p {
+        margin: 0.3rem 0;
+    }
+    }
+
+  }
+}

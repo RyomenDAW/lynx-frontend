@@ -1,0 +1,86 @@
+.biblioteca {
+  font-family: 'Orbitron', sans-serif;
+  color: cyan;
+  padding: 2rem;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .juegos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .juego-card {
+    background: #111;
+    border: 2px solid cyan;
+    padding: 1.5rem;
+    width: 230px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px cyan;
+    text-align: center;
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      margin: 0.5rem 0;
+      font-size: 18px;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      background: transparent;
+      border: 1px solid cyan;
+      color: cyan;
+      font-family: 'Orbitron';
+      padding: 0.5rem;
+      width: 100%;
+      margin-top: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        background: cyan;
+        color: black;
+      }
+    }
+
+    .input-minutos {
+      background: #000;
+      border: 1px solid cyan;
+      color: cyan;
+      font-family: 'Orbitron';
+      padding: 0.4rem;
+      text-align: center;
+      width: 100%;
+      margin-top: 8px;
+      border-radius: 5px;
+    }
+
+    .eliminar {
+      border-color: #ff0040;
+      color: #ff0040;
+
+      &:hover {
+        background: #ff0040;
+        color: white;
+      }
+    }
+  }
+}

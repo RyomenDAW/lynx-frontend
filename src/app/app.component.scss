@@ -1,0 +1,92 @@
+  .badge-saldo {
+  background: #36c7c7;
+  color: #000;
+  margin-left: 15px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+
+.navbar-lynx {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0e0e0e;
+  padding: 10px 30px;
+  color: #00d8ff;
+  font-family: 'Orbitron', sans-serif;
+  box-shadow: 0 0 25px rgba(0, 216, 255, 0.3);
+  border-bottom: 1px solid #00d8ff;
+
+  .navbar-left a {
+    margin-right: 20px;
+    color: #00d8ff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+
+  .navbar-right {
+    display: flex;
+    align-items: center;
+
+    .badge {
+      margin-left: 15px;
+      background: #00bfff;
+      color: #000;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 0 8px #00d8ff;
+    }
+
+    .avatar {
+      width: 70px;
+      height: 50px;
+      border-radius: 50%;
+      margin-left: 15px;
+      border: 2px solid #00d8ff;
+      box-shadow: 0 0 10px #00d8ff;
+      transition: transform 0.3s;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    .btn-logout-orbitron {
+      background: #ff0040;
+      color: #fff;
+      border: none;
+      margin-left: 15px;
+      padding: 6px 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      box-shadow: 0 0 10px rgba(255, 0, 64, 0.5);
+      transition: background 0.2s;
+
+      &:hover {
+        background: #cc0033;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .navbar-right {
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+  }
+
+
+}

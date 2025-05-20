@@ -1,0 +1,49 @@
+<div class="social-container">
+  <h1>Amigos y comunidad</h1>
+
+  <!-- 🔍 BUSCADOR -->
+  <div class="bloque">
+    <h2>Buscar usuarios</h2>
+    <input [(ngModel)]="terminoBusqueda" placeholder="Nombre de usuario" />
+    <button (click)="buscarUsuarios()">Buscar</button>
+
+    <div class="usuarios-grid" *ngIf="resultadosBusqueda.length">
+      <div class="card" *ngFor="let u of resultadosBusqueda">
+        <img [src]="u.avatar_base64" />
+        <p>{{ u.username }}</p>
+        <button (click)="enviarSolicitud(u.id)">Enviar solicitud</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✉️ SOLICITUDES -->
+  <div class="bloque" *ngIf="solicitudes.length">
+    <h2>Solicitudes recibidas</h2>
+    <div class="usuarios-grid">
+      <div class="card" *ngFor="let s of solicitudes">
+        <img [src]="s.solicitante.avatar_base64" />
+        <p>{{ s.solicitante.username }}</p>
+        <div class="acciones">
+        <button class="aceptar" (click)="aceptarSolicitud(s.id)">Aceptar</button>
+        <button class="rechazar" (click)="rechazarSolicitud(s.id)">Rechazar</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 👥 AMIGOS -->
+  <div class="bloque">
+    <h2>Mis amigos</h2>
+    <div class="usuarios-grid" *ngIf="amigos.length; else sinAmigos">
+      <div class="card" *ngFor="let a of amigos">
+        <img [src]="a.avatar_base64" />
+        <p>{{ a.username }}</p>
+        <button (click)="eliminarAmigo(a.id)">Eliminar</button>
+      </div>
+    </div>
+    <ng-template #sinAmigos>
+      <p>No tienes amigos aún 😢</p>
+    </ng-template>
+  </div>
+</div>

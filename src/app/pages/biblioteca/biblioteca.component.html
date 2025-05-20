@@ -1,0 +1,20 @@
+<div class="biblioteca">
+  <h1>Tu Biblioteca</h1>
+
+  <div class="juegos-grid">
+    <div class="juego-card" *ngFor="let juego of biblioteca">
+    <img [src]="juego.juego.imagen_portada_base64" alt="{{ juego.juego.titulo }}">
+      <h3>{{ juego.juego.titulo }}</h3>
+      <p>Tiempo jugado: {{ juego.tiempo_jugado }} minutos</p>
+
+      <button class="btn" (click)="marcarFavorito(juego)">
+        {{ juego.favorito ? '★ Favorito' : '☆ Marcar favorito' }}
+      </button>
+
+      <input type="number" [(ngModel)]="juego.minutosPersonalizados" min="1" class="input-minutos"/>
+      <button class="btn" (click)="sumarTiempo(juego)">Añadir tiempo</button>
+
+      <button class="btn eliminar" (click)="confirmarEliminacion(juego)">Eliminar</button>
+    </div>
+  </div>
+</div>

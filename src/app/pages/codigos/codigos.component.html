@@ -1,0 +1,42 @@
+<div class="codigos-container">
+  <h1>Códigos promocionales</h1>
+
+  <!-- 🔹 CANJEAR CÓDIGO -->
+  <div class="bloque">
+    <h2>Canjear código</h2>
+    <label for="canjear">Código a canjear</label>
+    <input id="canjear" type="text" [(ngModel)]="codigo" placeholder="Introduce el código..." />
+    <button (click)="canjearCodigo()">Canjear</button>
+  </div>
+
+  <!-- 🔹 FORMULARIO DE CREACIÓN (SOLO ADMIN O DIST) -->
+  <div class="bloque" *ngIf="esAdminODist">
+    <h2>Crear nuevo código</h2>
+
+    <label for="codigoTexto">Código</label>
+    <input id="codigoTexto" type="text" [(ngModel)]="nuevoCodigo.codigo_texto" placeholder="LYNXFREE100" />
+
+    <label for="saldoExtra">Saldo extra (€)</label>
+    <input id="saldoExtra" type="number" [(ngModel)]="nuevoCodigo.saldo_extra" />
+
+    <label for="videojuego">Videojuego (opcional)</label>
+    <select id="videojuego" [(ngModel)]="nuevoCodigo.videojuego">
+      <option value="">Sin juego (solo saldo)</option>
+      <option *ngFor="let juego of videojuegos" [value]="juego.id">
+        {{ juego.titulo }}
+      </option>
+    </select>
+
+    <label for="usosTotales">Usos totales</label>
+    <input id="usosTotales" type="number" [(ngModel)]="nuevoCodigo.usos_totales" />
+
+    <label for="fecha">Fecha de expiración</label>
+    <input id="fecha" type="date" [(ngModel)]="nuevoCodigo.fecha_expiracion" />
+
+    <button (click)="crearCodigo()">Crear código</button>
+  </div>
+
+  <!-- 🔹 MENSAJES -->
+  <div class="mensaje" *ngIf="mensaje">{{ mensaje }}</div>
+  <div class="error" *ngIf="error">{{ error }}</div>
+</div>

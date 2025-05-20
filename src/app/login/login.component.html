@@ -1,0 +1,38 @@
+<div class="login-container">
+  <h2 class="text-center mb-4">{{ isRegisterMode ? 'Registro en Lynx' : 'Iniciar Sesión en Lynx' }}</h2>
+
+  <form *ngIf="!isRegisterMode" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <input type="text" formControlName="username" placeholder="Usuario" class="form-control mb-2" />
+    <input type="password" formControlName="password" placeholder="Contraseña" class="form-control mb-2" />
+    <button type="submit" class="btn btn-success w-100" [disabled]="loginForm.invalid">Entrar</button>
+  </form>
+
+  <form *ngIf="isRegisterMode" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <input type="text" formControlName="username" placeholder="Nombre de usuario" class="form-control mb-2" />
+    <input type="text" formControlName="first_name" placeholder="Nombre real" class="form-control mb-2" />
+    <input type="text" formControlName="last_name" placeholder="Apellidos" class="form-control mb-2" />
+    <input type="email" formControlName="email" placeholder="Correo electrónico" class="form-control mb-2" />
+    <input type="password" formControlName="password" placeholder="Contraseña" class="form-control mb-2" />
+    <input type="password" formControlName="confirm_password" placeholder="Repite la contraseña" class="form-control mb-2" />
+
+    <select formControlName="rol" class="form-control mb-2">
+      <option *ngFor="let role of roles" [value]="role.value">{{ role.label }}</option>
+    </select>
+
+    <input type="file"
+       (change)="onAvatarChange($event)"
+       accept="image/*"
+       class="form-control mb-2" />
+
+    <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">Registrarse</button>
+  </form>
+
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+  <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+
+  <div class="text-center mt-3">
+    <button class="btn btn-link" (click)="toggleMode()">
+      {{ isRegisterMode ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate' }}
+    </button>
+  </div>
+</div>
