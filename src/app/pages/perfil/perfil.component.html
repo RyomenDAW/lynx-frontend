@@ -1,4 +1,5 @@
-<div class="perfil-container" *ngIf="perfil">
+<div class="perfil-container page fade-in" *ngIf="perfil">
+  <!-- PERFIL HEADER -->
   <div class="perfil-header">
     <div class="avatar-wrapper">
       <img [src]="perfil.avatar_base64" alt="Avatar del usuario" />
@@ -12,7 +13,10 @@
     </div>
   </div>
 
+  <!-- PERFIL CONTENT -->
   <div class="perfil-content">
+
+    <!-- INFORMACIÓN DEL USUARIO -->
     <div class="section">
       <h3>Información</h3>
       <p><span>Nombre:</span> {{ perfil.nombre_completo }}</p>
@@ -20,6 +24,13 @@
       <p><span>Saldo:</span> {{ perfil.saldo_virtual | number:'1.2-2' }} €</p>
     </div>
 
+    <!-- INFORMACIÓN DEL SISTEMA -->
+    <div class="section">
+      <h3>Información del sistema</h3>
+      <p><span>Plataforma:</span> Lynx Platform v1.0</p>
+    </div>
+
+    <!-- JUEGO FAVORITO -->
     <div class="section" *ngIf="juegoFavorito">
       <h3>Juego favorito</h3>
       <div class="juego-box">
@@ -27,5 +38,6 @@
         <p>{{ juegoFavorito.tiempo_jugado }} minutos jugados</p>
       </div>
     </div>
+
   </div>
 </div>

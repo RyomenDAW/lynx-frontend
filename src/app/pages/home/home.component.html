@@ -1,7 +1,35 @@
-<div class="home-container">
-  <h1>Bienvenido a Lynx</h1>
-  <p>Tu portal definitivo para explorar videojuegos, comunidad, inventario y mucho más.</p>
+<div class="home-container page fade-in">
 
-    <button routerLink="/login" class="btn-login-acceso">Acceder a tu cuenta</button>
+  <!-- USUARIO NO LOGUEADO -->
+  <ng-container *ngIf="!userInfo">
+    <h1 class="home-title">Bienvenido a Lynx</h1>
+    <p class="home-subtitle">Tu portal definitivo para descubrir videojuegos, gestionar tu biblioteca y conectar con la comunidad.</p>
+
+    <p>Regístrate o inicia sesión para acceder a todas las funciones de la plataforma.</p>
+    <p>Participa en eventos, colecciona logros y personaliza tu perfil.</p>
+    <p>Explora ofertas diarias y descubre nuevos lanzamientos cada semana.</p>
+
+    <div class="home-buttons">
+      <button routerLink="/login" class="btn-login-acceso">Acceder a tu cuenta</button>
+    </div>
+  </ng-container>
+
+  <!-- USUARIO LOGUEADO -->
+  <ng-container *ngIf="userInfo">
+    <h1 class="home-title">¡Hola, {{ userInfo.username }}!</h1>
+    <p class="home-subtitle">Este es tu centro de control en Lynx Platform.</p>
+
+    <p>📚 En total disponemos de <strong>X videojuegos</strong> en la tienda, listos para añadir a tu biblioteca.</p>
+    <p>🎮 Puedes consultar tus juegos favoritos, progreso y logros desde la Biblioteca.</p>
+    <p>📰 Visita la Comunidad para compartir opiniones y participar en los foros.</p>
+    <p>🏆 No olvides revisar los desafíos semanales y las ofertas especiales en la Tienda.</p>
+    <p></p>
+    <div class="home-buttons">
+      <button routerLink="/tienda" class="btn-login-acceso">Ir a la Tienda</button>
+      <button routerLink="/biblioteca" class="btn-login-acceso">Ir a tu Biblioteca</button>
+      <button routerLink="/social" class="btn-login-acceso">Ir a Comunidad</button>
+      <button routerLink="/codigos" class="btn-login-acceso">Canjear Códigos</button>
+    </div>
+  </ng-container>
 
 </div>

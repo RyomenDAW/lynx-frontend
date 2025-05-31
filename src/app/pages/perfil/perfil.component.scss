@@ -1,11 +1,23 @@
+/* ======================== */
+/* PERFIL CONTAINER */
+/* ======================== */
+
 .perfil-container {
   font-family: 'Orbitron', sans-serif;
   background: radial-gradient(ellipse at center, #0b0c1c 0%, #000 100%);
   color: #fff;
-  padding: 3rem;
-  max-width: 1200px;
-  margin: auto;
+  width: 100%;
+  min-height: calc(100vh - 120px); /* Ajusta según navbar+footer */
+  padding: 2rem 4rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
+
+/* ======================== */
+/* PERFIL HEADER */
+/* ======================== */
 
 .perfil-header {
   display: flex;
@@ -14,102 +26,129 @@
   border-bottom: 2px solid cyan;
   padding-bottom: 2rem;
   margin-bottom: 2rem;
-
-  .avatar-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    img {
-      width: 160px;
-      height: 160px;
-      border-radius: 10px;
-      border: 3px solid cyan;
-      box-shadow: 0 0 20px cyan;
-      object-fit: cover;
-    }
-
-    button {
-      margin-top: 1rem;
-      padding: 0.4rem 1rem;
-      background: transparent;
-      color: cyan;
-      border: 1px solid cyan;
-      cursor: pointer;
-      font-family: 'Orbitron';
-      transition: 0.3s;
-
-      &:hover {
-        background: cyan;
-        color: black;
-      }
-    }
-  }
-
-  .perfil-info-header {
-    h2 {
-      font-size: 2.4rem;
-      color: cyan;
-      margin: 0;
-      text-shadow: 0 0 8px cyan;
-    }
-
-    .rango {
-      margin-top: 0.3rem;
-      font-size: 1.2rem;
-      color: #ccc;
-    }
-
-    .bio {
-      margin-top: 0.8rem;
-      font-size: 0.95rem;
-      color: #999;
-      font-style: italic;
-    }
-  }
 }
+
+.perfil-header .avatar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.perfil-header .avatar-wrapper img {
+  width: 160px;
+  height: 160px;
+  border-radius: 10px;
+  border: 3px solid cyan;
+  box-shadow: 0 0 20px cyan;
+  object-fit: cover;
+}
+
+.perfil-header .avatar-wrapper button {
+  margin-top: 1rem;
+  padding: 0.4rem 1rem;
+  background: transparent;
+  color: cyan;
+  border: 1px solid cyan;
+  cursor: pointer;
+  font-family: 'Orbitron';
+  transition: 0.3s;
+}
+
+.perfil-header .avatar-wrapper button:hover {
+  background: cyan;
+  color: black;
+}
+
+.perfil-header .perfil-info-header h2 {
+  font-size: 2.4rem;
+  color: cyan;
+  margin: 0;
+  text-shadow: 0 0 8px cyan;
+}
+
+.perfil-header .perfil-info-header .rango {
+  margin-top: 0.3rem;
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+.perfil-header .perfil-info-header .bio {
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+  color: #999;
+  font-style: italic;
+}
+
+/* ======================== */
+/* PERFIL CONTENT */
+/* ======================== */
 
 .perfil-content {
   display: flex;
+  flex-direction: row;
   gap: 2rem;
+  flex-wrap: wrap;
+}
 
-  .section {
-    flex: 1;
-    background: #101020;
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+.perfil-content .section {
+  flex: 1 1 400px;
+  background: #101020;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+}
 
-    h3 {
-      color: cyan;
-      border-bottom: 1px solid cyan;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-      font-size: 1.4rem;
-    }
+.perfil-content .section h3 {
+  color: cyan;
+  border-bottom: 1px solid cyan;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
 
-    p {
-      margin: 0.5rem 0;
-      span {
-        color: cyan;
-        font-weight: bold;
-        margin-right: 0.5rem;
-        display: inline-block;
-        min-width: 120px;
-      }
-    }
+.perfil-content .section p {
+  margin: 0.5rem 0;
+}
 
-    .juego-box {
-      background: #0a0a1a;
-      border: 1px solid cyan;
-      border-radius: 8px;
-      padding: 1rem;
-      text-align: center;
+.perfil-content .section p span {
+  color: cyan;
+  font-weight: bold;
+  margin-right: 0.5rem;
+  display: inline-block;
+  min-width: 120px;
+}
 
-      p {
-        margin: 0.3rem 0;
-        font-size: 1rem;
-      }
-    }
+.perfil-content .section .juego-box {
+  background: #0a0a1a;
+  border: 1px solid cyan;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.perfil-content .section .juego-box p {
+  margin: 0.3rem 0;
+  font-size: 1rem;
+}
+
+/* ======================== */
+/* FADE IN */
+/* ======================== */
+
+.fade-in {
+  opacity: 0;
+  animation: fadeInPage 0.6s ease-in-out 0.15s forwards;
+}
+
+@keyframes fadeInPage {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: brightness(0.8) blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: brightness(1) blur(0);
   }
 }

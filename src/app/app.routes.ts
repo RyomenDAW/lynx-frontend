@@ -31,8 +31,13 @@ export const routes: Routes = [
 
   { path: 'codigos', component: CodigosComponent, canActivate: [AuthGuard] },
 
+{ path: 'politica-privacidad', loadComponent: () => import('./pages/legal/politica/politica.component').then(m => m.PoliticaComponent) },
+{ path: 'terminos-servicio', loadComponent: () => import('./pages/legal/terminos/terminos.component').then(m => m.TerminosComponent) },
+{ path: 'contacto', loadComponent: () => import('./pages/legal/contacto/contacto.component').then(m => m.ContactoComponent) },
 
   // SIEMPRE AL FINAL
   { path: '**', redirectTo: '', pathMatch: 'full' },
+
+  
 ];
 

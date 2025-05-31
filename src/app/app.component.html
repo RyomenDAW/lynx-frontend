@@ -1,3 +1,6 @@
+<div class="app-wrapper">
+
+
 <nav class="navbar-lynx">
   <div class="navbar-left">
     <a routerLink="/" class="logo">Lynx</a>
@@ -8,13 +11,31 @@
     <a *ngIf="userInfo" routerLink="/social">Social</a>
     <a *ngIf="userInfo" routerLink="/codigos">Códigos</a>
   </div>
-    <div class="navbar-right" *ngIf="userInfo">
-    <span>Bienvenido, {{ userInfo.username }}</span>
-    <span class="badge">Rango: {{ userInfo.rol }}</span>
-    <span class="badge-saldo">Saldo: {{ userInfo.saldo_virtual | number:'1.2-2' }}€</span>
-    <img *ngIf="userInfo.avatar_base64" [src]="userInfo.avatar_base64" class="avatar" />
-    <button (click)="confirmLogout()" class="btn-logout-orbitron">Logout</button>
-    </div>
+<div class="navbar-right" *ngIf="userInfo">
+  <span class="user-welcome">Bienvenido, {{ userInfo.username }}</span>
+  <span class="badge">Rango: {{ userInfo.rol }}</span>
+  <span class="badge-saldo">Saldo: {{ userInfo.saldo_virtual | number:'1.2-2' }}€</span>
+  <img *ngIf="userInfo.avatar_base64" [src]="userInfo.avatar_base64" class="avatar" />
+  <button (click)="confirmLogout()" class="btn-logout-orbitron">Logout</button>
+</div>
+
 </nav>
 
-<router-outlet></router-outlet>
+<div class="page-container fade-in">
+  <router-outlet></router-outlet>
+</div>
+
+
+<footer class="footer-lynx">
+  <div class="footer-content">
+    <span class="footer-text">© 2025 Lynx Platform. Todos los derechos reservados.</span>
+    <div class="footer-links">
+      <a routerLink="/politica-privacidad">Política de Privacidad</a>
+      <a routerLink="/terminos-servicio">Términos de Servicio</a>
+      <a routerLink="/contacto">Contacto</a>
+    </div>
+  </div>
+</footer>
+
+
+</div>
