@@ -154,119 +154,25 @@
 }
 
 
-/* Modal de chat */
-.chat-modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #111;
-  border: 2px solid #00f0ff;
-  border-radius: 10px;
-  padding: 20px;
-  width: 400px;
-  max-height: 600px;
-  box-shadow: 0 0 15px #00f0ff;
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-}
 
-.chat-messages {
-  flex: 1;
-  overflow-y: auto;
-  margin-bottom: 10px;
-  border: 1px solid #00f0ff;
-  border-radius: 5px;
-  padding: 10px;
-  background-color: #000;
-}
-
-.chat-message {
-  margin-bottom: 8px;
-  font-family: 'Orbitron', sans-serif;
-  color: #fff;
-}
-
-.chat-message.sent {
-  text-align: right;
-  color: #00f0ff;
-}
-
-.chat-message.received {
-  text-align: left;
-  color: #f0f0f0;
-}
-
-.chat-input {
-  display: flex;
-  gap: 10px;
-}
-
-.chat-input input {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #00f0ff;
-  border-radius: 5px;
-  background-color: #222;
-  color: #fff;
-  font-family: 'Orbitron', sans-serif;
-}
-
-.chat-input button {
-  padding: 8px 12px;
-  background-color: #00f0ff;
+.btn-volver-social {
+  background-color: #00d8ff;
   color: #000;
-  border: none;
-  border-radius: 5px;
   font-family: 'Orbitron', sans-serif;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
   cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 0 10px #00d8ff;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+  margin-top: 30px;
 }
 
-.chat-input button:hover {
-  background-color: #00c0cc;
-}
-
-/* Sección de amigos */
-.amigos-section {
-  margin-top: 20px;
-}
-
-.amigos-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 16px;
-  margin-top: 10px;
-}
-
-.amigo-card {
-  width: 120px;
-  padding: 10px;
-  background-color: #111;
-  border: 2px solid #00f0ff;
-  border-radius: 8px;
-  text-align: center;
-  transition: transform 0.3s ease;
-  box-shadow: 0 0 8px #00f0ff;
-}
-
-.amigo-card:hover {
+.btn-volver-social:hover {
+  background-color: #00bce0;
+  box-shadow: 0 0 15px #00f2ff;
   transform: scale(1.05);
 }
 
-.amigo-card img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 2px solid #00f0ff;
-  margin-bottom: 8px;
-}
 
-.amigo-card p {
-  font-family: 'Orbitron', sans-serif;
-  color: #00f0ff;
-  font-size: 14px;
-  margin: 0;
-  word-break: break-word;
-}

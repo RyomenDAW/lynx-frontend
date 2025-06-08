@@ -7,14 +7,17 @@
     <input [(ngModel)]="terminoBusqueda" placeholder="Nombre de usuario" />
     <button (click)="buscarUsuarios()">Buscar</button>
 
-    <div class="usuarios-grid" *ngIf="resultadosBusqueda.length">
-      <div class="card" *ngFor="let u of resultadosBusqueda">
-        <img [src]="u.avatar_base64" />
-        <p>{{ u.username }}</p>
-        <button (click)="enviarSolicitud(u.id)">Enviar solicitud</button>
-      </div>
-    </div>
+<div class="usuarios-grid" *ngIf="resultadosBusqueda.length">
+  <div class="card" *ngFor="let u of resultadosBusqueda">
+    <img [src]="u.avatar_base64" />
+    <p>{{ u.username }}</p>
+    <button *ngIf="!esAmigo(u.id)" (click)="enviarSolicitud(u.id)">Enviar solicitud</button>
+    
+    <!-- 🚀 BOTÓN VER PERFIL -->
+    <button [routerLink]="['/social/perfil-usuario', u.id]" class="btn-ver-perfil">Ver perfil</button>
   </div>
+</div>
+
 
   <!-- ✉️ SOLICITUDES -->
   <div class="bloque" *ngIf="solicitudes.length">
@@ -32,7 +35,9 @@
     </div>
   </div>
 
-  <!-- 👥 AMIGOS -->
+
+
+  <!-- AMIGOS -->
   <div class="bloque">
     <h2>Mis amigos</h2>
     <div class="usuarios-grid" *ngIf="amigos.length; else sinAmigos">
@@ -40,10 +45,45 @@
         <img [src]="a.avatar_base64" />
         <p>{{ a.username }}</p>
         <button (click)="eliminarAmigo(a.id)">Eliminar</button>
+
+        <!--  BOTÓN ABRIR CHAT -->
+        <button (click)="abrirChat(a)">Chat</button>
       </div>
     </div>
     <ng-template #sinAmigos>
       <p>No tienes amigos aún 😢</p>
     </ng-template>
   </div>
+
+
+<!-- CHAT FLOTANTE (BOTTOM RIGHT) -->
+<div *ngIf="mostrarChat" class="chat-floating">
+  <div class="chat-header">
+    Chat con {{ amigoSeleccionado?.username }}
+    <button class="close-btn" (click)="cerrarChat()">X</button>
+  </div>
+
+  <div class="chat-body">
+    <div *ngFor="let msg of mensajesPrivados" 
+        class="chat-message" 
+        [ngClass]="{'sent': msg.emisor.username === username, 'received': msg.emisor.username !== username}">
+      
+      <div class="chat-meta">
+        <span class="chat-author">{{ msg.emisor.username }}</span>
+        <span class="chat-time">{{ msg.fecha_envio | date:'MMM d, hh:mm a' }}</span>
+      </div>
+      
+      <div class="chat-content">{{ msg.contenido }}</div>
+    </div>
+  </div>
+
+  <div class="chat-input">
+  <form (submit)="enviarMensaje()" class="chat-input">
+    <input type="text" [(ngModel)]="nuevoMensaje" placeholder="Escribe un mensaje..." name="mensaje" required />
+    <button type="submit">Enviar</button>
+  </form>
+
+  </div>
+</div>
+
 </div>

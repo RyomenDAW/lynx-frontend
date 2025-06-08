@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PerfilService } from './perfil.service';
 import { PerfilUsuario, JuegoBiblioteca } from './perfil.model';
 import { HttpClientModule } from '@angular/common/http';
+import { Usuario } from '../social/social.model'; // <-- AÑADE ESTA IMPORTACIÓN
 
 @Component({
   selector: 'app-perfil',
@@ -14,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 export class PerfilComponent implements OnInit {
   perfil!: PerfilUsuario;
   juegoFavorito: JuegoBiblioteca | null = null;
+
+  amigos: Usuario[] = []; // <--- AÑADE ESTA LÍNEA
 
   constructor(private perfilService: PerfilService) {}
 
@@ -43,4 +46,6 @@ calcularJuegoFavorito(): void {
     };
     reader.readAsDataURL(file);
   }
+
+  
 }

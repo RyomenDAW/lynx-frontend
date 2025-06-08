@@ -67,18 +67,22 @@ export class ImportarComponent {
     const token = localStorage.getItem('access_token');
     const headers = { Authorization: `Bearer ${token}` };
 
-    this.http.get<any>(`http://127.0.0.1:8000/api/steam-search/?q=${this.searchTerm}`, { headers })
-      .subscribe({
-        next: res => {
-          this.resultados = res.items || [];
-          this.loading = false;
-        },
-        error: () => {
-          this.error = '❌ Error al buscar en Steam.';
-          this.loading = false;
-        }
-      });
+    this.http.get<any>('http://127.0.0.1:8000/api/steam-search/', {
+      headers,
+      params: { q: this.searchTerm }
+    })
+    .subscribe({
+      next: res => {
+        this.resultados = res.items || [];
+        this.loading = false;
+      },
+      error: () => {
+        this.error = '❌ Error al buscar en Steam.';
+        this.loading = false;
+      }
+    });
   }
+
 
   
 
@@ -97,10 +101,12 @@ export class ImportarComponent {
             return;
           }
 
-          // ✅ PARA JUEGOS SIN DESCRIPCIÓN NI GÉNERO (DLCs)
-          const base64 = juego.tiny_image
+          const base64 = data.header_image
+          ? await this.convertirImagenABase64(data.header_image).catch(() => '')
+          : (juego.tiny_image
             ? await this.convertirImagenABase64(juego.tiny_image).catch(() => '')
-            : '';
+            : '');
+
 
           const precio = juego.price?.final
             ? (parseFloat(juego.price.final) / 100).toFixed(2)

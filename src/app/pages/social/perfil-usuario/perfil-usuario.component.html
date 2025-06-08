@@ -1,0 +1,54 @@
+<div class="perfil-container page fade-in" *ngIf="usuario">
+
+  <!-- PERFIL HEADER -->
+  <div class="perfil-header">
+    <div class="avatar-wrapper">
+      <img [src]="usuario.avatar_base64" alt="Avatar del usuario" />
+      <!-- NO ponemos el botón cambiar imagen -->
+    </div>
+    <div class="perfil-info-header">
+      <h2>{{ usuario.username }}</h2>
+      <div class="rango">• {{ usuario.rol }} •</div>
+      <div class="bio">WELCOME TO MY PROFILE</div>
+    </div>
+  </div>
+
+  <!-- PERFIL CONTENT -->
+  <div class="perfil-content">
+
+    <!-- INFORMACIÓN DEL USUARIO -->
+    <div class="section">
+      <h3>Información</h3>
+      <p><span>Nombre:</span> {{ usuario.nombre_completo }}</p>
+      <p><span>Email:</span> {{ usuario.email }}</p>
+      <p><span>Saldo:</span> {{ usuario.saldo_virtual | number:'1.2-2' }} €</p>
+    </div>
+
+    <!-- INFORMACIÓN DEL SISTEMA -->
+    <div class="section">
+      <h3>Información del sistema</h3>
+      <p><span>Plataforma:</span> Lynx Platform v1.0</p>
+    </div>
+
+    <!-- BOTÓN VOLVER -->
+    <div class="section">
+      <button (click)="volverASocial()" class="btn-volver-social">← Volver a Social</button>
+    </div>
+
+
+    <!-- AMIGOS -->
+    <div class="section amigos-section" *ngIf="amigos && amigos.length > 0">
+      <h3>Amigos de {{ usuario.username }}</h3>
+      <div class="amigos-grid">
+        <div class="amigo-card" *ngFor="let amigo of amigos">
+          <img [src]="amigo.avatar_base64" alt="{{ amigo.username }}" />
+          <p>{{ amigo.username }}</p>
+        </div>
+      </div>
+    </div>
+
+      </div>
+
+
+
+</div>

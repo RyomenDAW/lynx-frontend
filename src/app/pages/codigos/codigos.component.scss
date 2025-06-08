@@ -101,3 +101,54 @@
     filter: brightness(1) blur(0);
   }
 }
+
+
+.item-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #00ffff;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 10px;
+    width: 250px; /* tamaño fijo */
+    min-height: 500px; /* altura mínima para que todas sean iguales */
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px #00ffff;
+    transition: transform 0.2s ease-in-out;
+}
+
+.item-img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain; /* así da igual si es cuchillo, arma o skin */
+    margin-bottom: 10px;
+}
+
+.item-card h3 {
+    font-size: 1.2rem;
+    margin: 5px 0;
+    text-align: center;
+}
+
+.item-card p {
+    font-size: 0.95rem;
+    margin: 2px 0;
+    text-align: center;
+}
+
+.item-card button {
+    margin-top: auto; /* el botón se va siempre abajo */
+    width: 80%;
+    padding: 6px;
+    border: none;
+    border-radius: 6px;
+    background-color: #00ffff;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.item-card button:hover {
+    background-color: #00ccff;
+}

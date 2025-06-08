@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SocialService } from './social.service';
 import { Usuario, Amistad } from './social.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-social',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
   templateUrl: './social.component.html',
   styleUrls: ['./social.component.scss']
 })
@@ -17,6 +18,13 @@ export class SocialComponent implements OnInit {
   resultadosBusqueda: Usuario[] = [];
   amigos: Usuario[] = [];
   solicitudes: Amistad[] = [];
+
+  // CHAT
+  mostrarChat: boolean = false;
+  amigoSeleccionado: Usuario | null = null;
+  mensajesPrivados: any[] = [];
+  nuevoMensaje: string = '';
+  username: string = localStorage.getItem('username') || '';
 
   constructor(private socialService: SocialService) {}
 
@@ -55,5 +63,44 @@ export class SocialComponent implements OnInit {
     if (confirm('¿Eliminar amigo?')) {
       this.socialService.eliminarAmigo(id).subscribe(() => this.recargarDatos());
     }
+  }
+
+  esAmigo(id: number): boolean {
+    return this.amigos.some(a => a.id === id);
+  }
+
+  // CHAT 🚀
+
+  abrirChat(amigo: Usuario) {
+    this.amigoSeleccionado = amigo;
+    this.mensajesPrivados = [];
+    this.nuevoMensaje = '';
+    this.mostrarChat = true;
+
+    this.socialService.obtenerChat(amigo.id).subscribe(data => {
+      this.mensajesPrivados = data;
+    });
+  }
+
+  enviarMensaje() {
+    if (!this.nuevoMensaje.trim() || !this.amigoSeleccionado) return;
+
+    const body = {
+      receptor_id: this.amigoSeleccionado.id,
+      contenido: this.nuevoMensaje
+    };
+
+    this.socialService.enviarMensaje(body).subscribe(() => {
+      this.nuevoMensaje = '';
+      // Refrescamos el chat actualizado
+      this.abrirChat(this.amigoSeleccionado!);
+    });
+  }
+
+  cerrarChat() {
+    this.mostrarChat = false;
+    this.amigoSeleccionado = null;
+    this.mensajesPrivados = [];
+    this.nuevoMensaje = '';
   }
 }

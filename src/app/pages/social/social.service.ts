@@ -47,4 +47,18 @@ export class SocialService {
   eliminarAmigo(id: number): Observable<any> {
     return this.http.delete(`${API_URL}${id}/`, this.getHeaders());
   }
+
+  obtenerPerfilUsuario(id: number) {
+    return this.http.get<Usuario>(`${API_URL}${id}/profile/`, this.getHeaders());
+  }
+
+  obtenerChat(amigoId: number) {
+    return this.http.get<any[]>(`${API_URL}${amigoId}/chat/`, this.getHeaders());
+  }
+
+  enviarMensaje(body: { receptor_id: number, contenido: string }) {
+    return this.http.post(`${API_URL}enviar_mensaje/`, body, this.getHeaders());
+  }
+
+
 }

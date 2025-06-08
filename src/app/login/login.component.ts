@@ -62,17 +62,30 @@ export class LoginComponent {
     this.successMessage = '';
   }
 
-  onLogin() {
-    if (this.loginForm.valid) {
-      const { username, password } = this.loginForm.value;
-      this.authService.login(username!, password!).subscribe({
-        next: () => this.router.navigate(['/']),
-        error: (err) => {
-          this.errorMessage = 'Credenciales incorrectas';
-        }
-      });
-    }
+onLogin() {
+  if (this.loginForm.valid) {
+    const { username, password } = this.loginForm.value;
+    this.authService.login(username!, password!).subscribe({
+      next: (response: any) => {
+        // 💥 Aquí guardas el token y el user_id
+        const accessToken = response.access;
+        localStorage.setItem('access_token', accessToken);
+
+        // Decodificar el token para extraer username, rol, user_id
+        const payload = JSON.parse(atob(accessToken.split('.')[1]));
+        localStorage.setItem('username', payload.username);
+        localStorage.setItem('rol', payload.rol);
+        localStorage.setItem('user_id', payload.user_id);  // 💥 MUY IMPORTANTE
+
+        // Ahora ya puedes navegar
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        this.errorMessage = 'Credenciales incorrectas';
+      }
+    });
   }
+}
 
 onRegister() {
   if (this.registerForm.valid) {

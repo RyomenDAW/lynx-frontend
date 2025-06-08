@@ -40,4 +40,16 @@
     </div>
 
   </div>
+
+  <!-- AMIGOS -->
+<div class="section amigos-section" *ngIf="amigos && amigos.length > 0">
+  <h3>Amigos</h3>
+  <div class="amigos-grid">
+    <div class="amigo-card" *ngFor="let amigo of amigos">
+      <img [src]="amigo.avatar_base64" alt="{{ amigo.username }}" />
+      <p>{{ amigo.username }}</p>
+    </div>
+  </div>
+</div>
+
 </div>
