@@ -1,3 +1,7 @@
+  <!-- 🔹 MENSAJES -->
+  <div class="mensaje" *ngIf="mensaje">{{ mensaje }}</div>
+  <div class="error" *ngIf="error">{{ error }}</div>
+
 <div class="codigos-container page fade-in">
   <h1>Códigos promocionales</h1>
 
@@ -36,7 +40,5 @@
     <button (click)="crearCodigo()">Crear código</button>
   </div>
 
-  <!-- 🔹 MENSAJES -->
-  <div class="mensaje" *ngIf="mensaje">{{ mensaje }}</div>
-  <div class="error" *ngIf="error">{{ error }}</div>
+
 </div>

@@ -14,6 +14,8 @@ import { Usuario } from '../social.model'; // <--- AÑADE ESTA IMPORTACIÓN
 export class PerfilUsuarioComponent implements OnInit {
   usuario: any = null;
   amigos: Usuario[] = []; // <--- AÑADE ESTA LÍNEA
+  usuarioLogueadoId: number = Number(localStorage.getItem('user_id'));
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,

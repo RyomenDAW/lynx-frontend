@@ -270,3 +270,50 @@
   margin: 0;
   word-break: break-word;
 }
+
+.avatar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar-glow {
+  border: 3px solid cyan;
+  padding: 6px;
+  border-radius: 12px;
+  display: inline-block;
+  transition: box-shadow 0.3s ease;
+}
+
+.avatar-glow img {
+  width: 160px;
+  height: 160px;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Efecto glow si está jugando */
+.jugando-activo {
+  box-shadow:
+    0 0 10px #00ff7f,
+    0 0 20px #00ff7f,
+    0 0 35px #00ff7f;
+  animation: glow-only 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes glow-only {
+  from {
+    box-shadow:
+      0 0 10px #00ff7f,
+      0 0 20px #00ff7f,
+      0 0 30px #00ff7f;
+  }
+  to {
+    box-shadow:
+      0 0 16px #00ff7f,
+      0 0 28px #00ff7f,
+      0 0 42px #00ff7f;
+  }
+}

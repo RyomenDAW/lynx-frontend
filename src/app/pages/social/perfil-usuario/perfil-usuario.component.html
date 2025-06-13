@@ -21,7 +21,9 @@
       <h3>Información</h3>
       <p><span>Nombre:</span> {{ usuario.nombre_completo }}</p>
       <p><span>Email:</span> {{ usuario.email }}</p>
-      <p><span>Saldo:</span> {{ usuario.saldo_virtual | number:'1.2-2' }} €</p>
+      <p *ngIf="usuario.id === usuarioLogueadoId">
+        <span>Saldo:</span> {{ usuario.saldo_virtual | number:'1.2-2' }} €
+    </p>
     </div>
 
     <!-- INFORMACIÓN DEL SISTEMA -->

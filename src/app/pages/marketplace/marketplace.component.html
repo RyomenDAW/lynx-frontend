@@ -2,21 +2,24 @@
   <h2 class="titulo">Marketplace de Ítems</h2>
 
   <!-- Botones principales -->
-  <div class="botones-principales">
-    <button (click)="abrirModal('inventory')">Ver mis ítems</button>
-    <button (click)="abrirModal('poner_venta')">Poner un ítem en venta</button>
-    <button *ngIf="rol === 'ADMIN'" (click)="abrirModal('crear_item')">Crear nuevo ítem</button>
-    <button *ngIf="rol === 'ADMIN'" (click)="abrirModal('admin_inventory')">Ver inventarios</button>
+<div class="botones-principales">
+  <button (click)="abrirModal('inventory')">Ver mis ítems</button>
+  <button (click)="abrirModal('poner_venta')">Poner un ítem en venta</button>
+  <button *ngIf="rol === 'ADMIN'" class="boton-admin" (click)="abrirModal('crear_item')">Crear nuevo ítem [ADMIN]</button>
+  <button *ngIf="rol === 'ADMIN'" class="boton-admin" (click)="abrirModal('admin_inventory')">Ver inventarios [ADMIN]</button>
+</div>
+
+
+<!-- ÍTEMS EN VENTA (pantalla principal) -->
+<h3 class="subtitulo">Ítems en venta</h3>
+<div class="contenedor-marketplace">
+  <div *ngIf="marketplaceItems.length === 0" class="mensaje-vacio">
+    No hay ítems en venta actualmente.
   </div>
 
-  <!-- ÍTEMS EN VENTA (pantalla principal) -->
-  <h3 class="subtitulo">Ítems en venta</h3>
-  <div class="contenedor-marketplace">
-    <div *ngIf="marketplaceItems.length === 0" class="mensaje-vacio">
-      No hay ítems en venta actualmente.
-    </div>
-
-    <div class="item-card" *ngFor="let entry of marketplaceItems">
+  <ng-container *ngFor="let entry of marketplaceItems">
+    <!-- MOSTRAR SOLO ÍTEMS DE OTROS USUARIOS -->
+    <div class="item-card" *ngIf="entry.vendedor.username !== username">
       <img [src]="entry.item.imagen_base64" alt="{{ entry.item.nombre }}" class="item-img">
       <h3>{{ entry.item.nombre }}</h3>
       <p>{{ entry.item.descripcion }}</p>
@@ -25,40 +28,50 @@
       <p>Vendedor: {{ entry.vendedor.username }}</p>
 
       <button (click)="comprarItem(entry.id)">Comprar</button>
-
-      <div *ngIf="entry.vendedor.username === username" style="margin-top: 10px;">
-        <button (click)="eliminarItemEnVenta(entry.id)">Eliminar de la tienda</button>
-      </div>
     </div>
-  </div>
 
-  <!-- MODAL: Mis ítems -->
-  <div class="modal" *ngIf="modalAbierto === 'inventory'">
-    <div class="modal-contenido">
-      <h3>Mis ítems</h3>
-      <button class="cerrar" (click)="cerrarModal()">X</button>
+    <!-- SI ES TUYO → MOSTRAR SOLO BOTÓN DE ELIMINAR -->
+    <div class="item-card" *ngIf="entry.vendedor.username === username">
+      <img [src]="entry.item.imagen_base64" alt="{{ entry.item.nombre }}" class="item-img">
+      <h3>{{ entry.item.nombre }}</h3>
+      <p>{{ entry.item.descripcion }}</p>
+      <p>Rareza: {{ entry.item.rareza }}</p>
+      <p>Precio: {{ entry.precio }} €</p>
+      <p>Vendedor: Tú</p>
 
-      <div *ngIf="userItems.length === 0" class="mensaje-vacio">
-        No tienes ítems disponibles.
-      </div>
+      <button (click)="eliminarItemEnVenta(entry.id)">Eliminar de la tienda</button>
+    </div>
+  </ng-container>
+  <!-- MODAL: Ver mis ítems -->
+<div class="modal" *ngIf="modalAbierto === 'inventory'">
+  <div class="modal-contenido">
+    <h3>Mis ítems</h3>
+    <button class="cerrar" (click)="cerrarModal()">X</button>
 
-      <div class="contenedor-marketplace">
-        <div class="item-card" *ngFor="let entry of userItems">
-          <img [src]="entry.item.imagen_base64" alt="{{ entry.item.nombre }}" class="item-img">
-          <h3>{{ entry.item.nombre }}</h3>
-          <p>{{ entry.item.descripcion }}</p>
-          <p>Rareza: {{ entry.item.rareza }}</p>
-          <p>Cantidad: {{ entry.cantidad }}</p>
+    <div *ngIf="userItems.length === 0" class="mensaje-vacio">
+      No tienes ítems actualmente.
+    </div>
 
-          <div style="margin-top: 10px;">
-            <label>Eliminar cantidad:</label>
-            <input type="number" [(ngModel)]="entry.eliminarCantidad" min="1" [max]="entry.cantidad">
-            <button (click)="eliminarCantidadItem(entry)">Eliminar</button>
-          </div>
+    <div class="contenedor-marketplace">
+      <div class="item-card" *ngFor="let entry of userItems">
+        <img [src]="entry.item.imagen_base64" alt="{{ entry.item.nombre }}" class="item-img">
+        <h3>{{ entry.item.nombre }}</h3>
+        <p>{{ entry.item.descripcion }}</p>
+        <p>Rareza: {{ entry.item.rareza }}</p>
+        <p>Cantidad: {{ entry.cantidad }}</p>
+
+        <div style="margin-top: 10px;">
+          <label>Eliminar cantidad:</label>
+          <input type="number" [(ngModel)]="entry.eliminarCantidad" min="1" [max]="entry.cantidad">
+          <button (click)="eliminarCantidadItem(entry)">Eliminar</button>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+</div>
+
 
   <!-- MODAL: Poner en venta -->
   <div class="modal" *ngIf="modalAbierto === 'poner_venta'">

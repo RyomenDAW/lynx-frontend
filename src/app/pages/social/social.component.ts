@@ -18,6 +18,7 @@ export class SocialComponent implements OnInit {
   resultadosBusqueda: Usuario[] = [];
   amigos: Usuario[] = [];
   solicitudes: Amistad[] = [];
+  mensajeInfo: string | null = null;
 
   // CHAT
   mostrarChat: boolean = false;
@@ -26,7 +27,7 @@ export class SocialComponent implements OnInit {
   nuevoMensaje: string = '';
   username: string = localStorage.getItem('username') || '';
 
-  constructor(private socialService: SocialService) {}
+  constructor(private socialService: SocialService) { }
 
   ngOnInit(): void {
     this.recargarDatos();
@@ -46,24 +47,44 @@ export class SocialComponent implements OnInit {
 
   enviarSolicitud(id: number) {
     this.socialService.enviarSolicitud(id).subscribe(() => {
-      alert('Solicitud enviada');
       this.resultadosBusqueda = [];
+      this.mensajeInfo = '📨 Solicitud de amistad enviada.';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => this.mensajeInfo = null, 4000);
     });
   }
 
-  aceptarSolicitud(id: number) {
-    this.socialService.aceptarSolicitud(id).subscribe(() => this.recargarDatos());
-  }
 
-  rechazarSolicitud(id: number) {
-    this.socialService.rechazarSolicitud(id).subscribe(() => this.recargarDatos());
-  }
+aceptarSolicitud(id: number) {
+  this.socialService.aceptarSolicitud(id).subscribe(() => {
+    this.recargarDatos();
+    this.mensajeInfo = '✅ Solicitud aceptada correctamente.';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => this.mensajeInfo = null, 4000);
+  });
+}
+
+
+rechazarSolicitud(id: number) {
+  this.socialService.rechazarSolicitud(id).subscribe(() => {
+    this.recargarDatos();
+    this.mensajeInfo = '❌ Solicitud rechazada.';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => this.mensajeInfo = null, 4000);
+  });
+}
 
   eliminarAmigo(id: number) {
     if (confirm('¿Eliminar amigo?')) {
-      this.socialService.eliminarAmigo(id).subscribe(() => this.recargarDatos());
+      this.socialService.eliminarAmigo(id).subscribe(() => {
+        this.recargarDatos();
+        this.mensajeInfo = '✅ Amigo eliminado correctamente.';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => this.mensajeInfo = null, 4000);
+      });
     }
   }
+
 
   esAmigo(id: number): boolean {
     return this.amigos.some(a => a.id === id);

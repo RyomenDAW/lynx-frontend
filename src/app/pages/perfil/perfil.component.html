@@ -1,14 +1,23 @@
 <div class="perfil-container page fade-in" *ngIf="perfil">
   <!-- PERFIL HEADER -->
   <div class="perfil-header">
-    <div class="avatar-wrapper">
-      <img [src]="perfil.avatar_base64" alt="Avatar del usuario" />
-      <input type="file" accept="image/*" (change)="cambiarImagen($event)" hidden #fileInput>
-      <button (click)="fileInput.click()">Cambiar imagen</button>
-    </div>
+<div class="avatar-wrapper">
+  <div class="avatar-glow" [ngClass]="{ 'jugando-activo': estadoActual }">
+    <img [src]="perfil.avatar_base64" alt="Avatar del usuario" />
+  </div>
+  <input type="file" accept="image/*" (change)="cambiarImagen($event)" hidden #fileInput>
+  <button (click)="fileInput.click()">Cambiar imagen</button>
+</div>
+
     <div class="perfil-info-header">
       <h2>{{ perfil.username }}</h2>
       <div class="rango">• {{ perfil.rol }} •</div>
+      <br>
+      <!-- ESTADO DE JUEGO -->
+      <div *ngIf="estadoActual" class="jugando-steam">
+        Jugando a <strong>{{ estadoActual }}</strong>
+      </div>
+
       <div class="bio">WELCOME TO MY PROFILE</div>
     </div>
   </div>
@@ -21,13 +30,18 @@
       <h3>Información</h3>
       <p><span>Nombre:</span> {{ perfil.nombre_completo }}</p>
       <p><span>Email:</span> {{ perfil.email }}</p>
-      <p><span>Saldo:</span> {{ perfil.saldo_virtual | number:'1.2-2' }} €</p>
+      <p *ngIf="perfil.id === usuarioLogueadoId">
+        <span>Saldo:</span> {{ perfil.saldo_virtual | number:'1.2-2' }} €
+      </p>
     </div>
 
     <!-- INFORMACIÓN DEL SISTEMA -->
     <div class="section">
       <h3>Información del sistema</h3>
       <p><span>Plataforma:</span> Lynx Platform v1.0</p>
+      <h3>Estado actual</h3>
+      <p *ngIf="estadoActual">Jugando a <strong>{{ estadoActual }}</strong></p>
+      <p *ngIf="!estadoActual">🟢 En línea</p>
     </div>
 
     <!-- JUEGO FAVORITO -->
@@ -42,14 +56,13 @@
   </div>
 
   <!-- AMIGOS -->
-<div class="section amigos-section" *ngIf="amigos && amigos.length > 0">
-  <h3>Amigos</h3>
-  <div class="amigos-grid">
-    <div class="amigo-card" *ngFor="let amigo of amigos">
-      <img [src]="amigo.avatar_base64" alt="{{ amigo.username }}" />
-      <p>{{ amigo.username }}</p>
+  <div class="section amigos-section" *ngIf="amigos && amigos.length > 0">
+    <h3>Amigos</h3>
+    <div class="amigos-grid">
+      <div class="amigo-card" *ngFor="let amigo of amigos">
+        <img [src]="amigo.avatar_base64" alt="{{ amigo.username }}" />
+        <p>{{ amigo.username }}</p>
+      </div>
     </div>
   </div>
-</div>
-
 </div>

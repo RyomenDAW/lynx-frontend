@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -14,7 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-
+  fieldErrors: { [key: string]: string } = {};
   errorMessage = '';
   successMessage = '';
   isRegisterMode = false;
@@ -31,6 +31,7 @@ export class LoginComponent {
     { value: 'DIST', label: 'Distribuidor Oficial' },
     { value: 'SOP', label: 'Soporte Técnico' }
   ];
+
 
   constructor(
     private fb: FormBuilder,
@@ -50,9 +51,13 @@ export class LoginComponent {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      rol: ['USER', Validators.required],
-      avatar: [null]
+      rol: ['', Validators.required],   
+      avatar: [null],
+    });
 
+    // VALIDACIÓN REACTIVA DE CONTRASEÑA
+    this.registerForm.valueChanges.subscribe(() => {
+      this.checkPasswordMatch();
     });
   }
 
@@ -62,32 +67,35 @@ export class LoginComponent {
     this.successMessage = '';
   }
 
-onLogin() {
-  if (this.loginForm.valid) {
-    const { username, password } = this.loginForm.value;
-    this.authService.login(username!, password!).subscribe({
-      next: (response: any) => {
-        // 💥 Aquí guardas el token y el user_id
-        const accessToken = response.access;
-        localStorage.setItem('access_token', accessToken);
+  onLogin() {
+    this.errorMessage = '';
+    this.successMessage = '';
 
-        // Decodificar el token para extraer username, rol, user_id
-        const payload = JSON.parse(atob(accessToken.split('.')[1]));
-        localStorage.setItem('username', payload.username);
-        localStorage.setItem('rol', payload.rol);
-        localStorage.setItem('user_id', payload.user_id);  // 💥 MUY IMPORTANTE
+    if (this.loginForm.valid) {
+      const { username, password } = this.loginForm.value;
+      this.authService.login(username!, password!).subscribe({
+        next: (response: any) => {
+          const accessToken = response.access;
+          localStorage.setItem('access_token', accessToken);
 
-        // Ahora ya puedes navegar
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        this.errorMessage = 'Credenciales incorrectas';
-      }
-    });
+          const payload = JSON.parse(atob(accessToken.split('.')[1]));
+          localStorage.setItem('username', payload.username);
+          localStorage.setItem('rol', payload.rol);
+          localStorage.setItem('user_id', payload.user_id);
+
+          this.router.navigate(['/']);
+        },
+        error: (err: HttpErrorResponse) => {
+          this.errorMessage = this.handleHttpError(err);
+        }
+      });
+    }
   }
-}
 
 onRegister() {
+  this.errorMessage = '';
+  this.successMessage = '';
+
   if (this.registerForm.valid) {
     const formData = this.registerForm.value;
 
@@ -96,11 +104,11 @@ onRegister() {
       return;
     }
 
-    delete formData.confirm_password;
-
     const finalizeSend = (avatarBase64: string | null = null) => {
       formData.avatar_base64 = avatarBase64;
       delete formData.avatar;
+
+   
       this.sendRegister(formData);
     };
 
@@ -115,24 +123,62 @@ onRegister() {
 }
 
 
-onAvatarChange(event: Event) {
-  const input = event.target as HTMLInputElement;
-  if (input.files && input.files.length > 0) {
-    const file = input.files[0];
-    this.registerForm.patchValue({ avatar: file });
+  onAvatarChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.registerForm.patchValue({ avatar: file });
+    }
+  }
+
+  sendRegister(formData: any) {
+    this.fieldErrors = {};
+    this.errorMessage = '';
+    this.successMessage = '';
+    console.log('Formulario a enviar:', formData);
+
+    this.http.post('http://127.0.0.1:8000/api/register/', formData).subscribe({
+      next: () => {
+        this.successMessage = '✅ Usuario creado correctamente. Ahora puedes iniciar sesión.';
+        this.registerForm.reset();
+        this.isRegisterMode = false;
+      },
+      error: (err: HttpErrorResponse) => {
+        if (err.status === 400 && typeof err.error === 'object') {
+          // Guardamos cada error por campo
+          this.fieldErrors = {};
+          for (const campo in err.error) {
+            if (Array.isArray(err.error[campo])) {
+              this.fieldErrors[campo] = err.error[campo][0]; // Solo el primer error de cada campo
+            }
+          }
+        } else {
+          this.errorMessage = this.handleHttpError(err);
+        }
+      }
+    });
+  }
+
+
+  handleHttpError(err: HttpErrorResponse): string {
+    if (err.status === 0) return 'No se pudo conectar con el servidor.';
+    if (err.status === 400) return 'Datos inválidos. Revisa los campos e inténtalo otra vez.';
+    if (err.status === 401) return 'Credenciales incorrectas.';
+    if (err.status === 403) return 'No tienes permisos para acceder.';
+    if (err.status === 404) return 'Recurso no encontrado.';
+    if (err.status >= 500) return 'Error interno del servidor. Inténtalo más tarde.';
+    return 'Error inesperado. Inténtalo de nuevo.';
+  }
+
+
+  checkPasswordMatch() {
+    const password = this.registerForm.get('password')?.value;
+    const confirmPassword = this.registerForm.get('confirm_password')?.value;
+
+    if (confirmPassword && password !== confirmPassword) {
+      this.registerForm.get('confirm_password')?.setErrors({ mismatch: true });
+    } else {
+      this.registerForm.get('confirm_password')?.setErrors(null);
+    }
   }
 }
-
-
-sendRegister(formData: any) {
-  this.http.post('http://127.0.0.1:8000/api/register/', formData).subscribe({
-    next: () => {
-      this.successMessage = 'Usuario creado correctamente, ahora puedes iniciar sesión.';
-      this.registerForm.reset();
-      this.isRegisterMode = false;
-    },
-    error: (err) => {
-      this.errorMessage = err.error.error || 'Error en el registro.';
-    }
-  });
-}}

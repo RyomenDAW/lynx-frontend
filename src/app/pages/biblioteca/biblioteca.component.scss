@@ -2,92 +2,176 @@
   font-family: 'Orbitron', sans-serif;
   color: cyan;
   padding: 2rem;
-
-  h1 {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  .juegos-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: center;
-  }
-
-  .juego-card {
-    background: #111;
-    border: 2px solid cyan;
-    padding: 1.5rem;
-    width: 230px;
-    border-radius: 20px;
-    box-shadow: 0 0 15px cyan;
-    text-align: center;
-    min-height: 450px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
-
-    h3 {
-      margin: 0.5rem 0;
-      font-size: 18px;
-    }
-
-    p {
-      margin-bottom: 1rem;
-    }
-
-    .btn {
-      background: transparent;
-      border: 1px solid cyan;
-      color: cyan;
-      font-family: 'Orbitron';
-      padding: 0.5rem;
-      width: 100%;
-      margin-top: 5px;
-      cursor: pointer;
-      transition: all 0.3s;
-
-      &:hover {
-        background: cyan;
-        color: black;
-      }
-    }
-
-    .input-minutos {
-      background: #000;
-      border: 1px solid cyan;
-      color: cyan;
-      font-family: 'Orbitron';
-      padding: 0.4rem;
-      text-align: center;
-      width: 100%;
-      margin-top: 8px;
-      border-radius: 5px;
-    }
-
-    .eliminar {
-      border-color: #ff0040;
-      color: #ff0040;
-
-      &:hover {
-        background: #ff0040;
-        color: white;
-      }
-    }
-  }
 }
 
+.biblioteca h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.filtros-biblioteca {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.filtro-input {
+  padding: 0.5rem 1rem;
+  background: #000;
+  border: 1px solid cyan;
+  color: cyan;
+  font-family: 'Orbitron';
+  border-radius: 5px;
+  width: 280px;
+}
+
+.filtro-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.filtro-checkbox input[type="checkbox"] {
+  transform: scale(1.2);
+  accent-color: cyan;
+}
+
+.juegos-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.juego-card {
+  display: flex;
+  align-items: flex-start;
+  background: linear-gradient(to right, #111 65%, #000);
+  border: 2px solid cyan;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.25);
+  border-radius: 14px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 1200px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 1rem;
+}
+
+.juego-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+}
+
+.juego-card img {
+  width: 180px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 1.5rem;
+  flex-shrink: 0;
+}
+
+.juego-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.juego-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: cyan;
+}
+
+.juego-info p {
+  font-size: 0.95rem;
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+.fila-acciones {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.input-minutos {
+  height: 38px;
+  padding: 0.4rem 0.8rem;
+  font-family: 'Orbitron';
+  font-size: 0.85rem;
+  border-radius: 6px;
+  border: 1px solid cyan;
+  background: #000;
+  color: cyan;
+  width: 80px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.btn {
+  height: 38px;
+  padding: 0.4rem 0.8rem;
+  font-family: 'Orbitron';
+  font-size: 0.85rem;
+  border-radius: 6px;
+  border: 1px solid cyan;
+  background: transparent;
+  color: cyan;
+  cursor: pointer;
+  transition: 0.2s;
+  box-sizing: border-box;
+}
+
+.btn:hover {
+  background: cyan;
+  color: black;
+}
+
+.eliminar {
+  border-color: #ff0040;
+  color: #ff0040;
+}
+
+.eliminar:hover {
+  background: #ff0040;
+  color: white;
+}
+
+.notificacion {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  z-index: 9999;
+  font-weight: bold;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  animation: fadeInPage 0.3s ease-in-out;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.notificacion-exito {
+  background-color: #0f0;
+  color: #000;
+}
+
+.notificacion-error {
+  background-color: #f00;
+  color: #fff;
+}
+
+
 .fade-in {
-  opacity: 0; 
-  animation: fadeInPage 0.6s ease-in-out 0.15s forwards; /* forwards = mantiene estado final */
+  opacity: 0;
+  animation: fadeInPage 0.6s ease-in-out 0.15s forwards;
 }
 
 @keyframes fadeInPage {
@@ -96,6 +180,7 @@
     transform: translateY(20px);
     filter: brightness(0.8) blur(2px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

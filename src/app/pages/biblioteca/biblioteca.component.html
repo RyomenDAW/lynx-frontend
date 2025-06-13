@@ -1,20 +1,48 @@
+<!-- 🔔 NOTIFICACIONES -->
+<div *ngIf="successMessage" class="notificacion notificacion-exito">{{ successMessage }}</div>
+<div *ngIf="errorMessage" class="notificacion notificacion-error">{{ errorMessage }}</div>
+
+
 <div class="biblioteca page fade-in">
   <h1>Tu Biblioteca</h1>
 
+  <!-- 🔍 FILTROS -->
+  <div class="filtros-biblioteca">
+    <input
+      type="text"
+      [(ngModel)]="filtroNombre"
+      (ngModelChange)="actualizarFiltros()"
+      placeholder="Buscar por título..."
+      class="filtro-input"
+    />
+    <label class="filtro-checkbox">
+      <input
+        type="checkbox"
+        [(ngModel)]="filtroFavoritos"
+        (ngModelChange)="actualizarFiltros()"
+      />
+      Solo favoritos
+    </label>
+  </div>
+
+  <!-- 🕹️ LISTA DE JUEGOS -->
   <div class="juegos-grid">
-    <div class="juego-card" *ngFor="let juego of biblioteca">
-    <img [src]="juego.juego.imagen_portada_base64" alt="{{ juego.juego.titulo }}">
-      <h3>{{ juego.juego.titulo }}</h3>
-      <p>Tiempo jugado: {{ juego.tiempo_jugado }} minutos</p>
+    <div class="juego-card" *ngFor="let juego of bibliotecaFiltrada">
+      <img [src]="juego.juego.imagen_portada_base64" alt="{{ juego.juego.titulo }}">
+      <div class="juego-info">
+        <h3>{{ juego.juego.titulo }}</h3>
+        <p>Tiempo jugado: {{ juego.tiempo_jugado }} minutos</p>
 
-      <button class="btn" (click)="marcarFavorito(juego)">
-        {{ juego.favorito ? '★ Favorito' : '☆ Marcar favorito' }}
-      </button>
-
-      <input type="number" [(ngModel)]="juego.minutosPersonalizados" min="1" class="input-minutos"/>
-      <button class="btn" (click)="sumarTiempo(juego)">Añadir tiempo</button>
-
-      <button class="btn eliminar" (click)="confirmarEliminacion(juego)">Eliminar</button>
+        <div class="fila-acciones">
+          <button class="btn" (click)="marcarFavorito(juego)">
+            {{ juego.favorito ? '★ Favorito' : '☆ Marcar favorito' }}
+          </button>
+          <button class="btn jugar" (click)="alternarJuego(juego)">
+            {{ juegoEnCurso?.id === juego.id ? '🛑 Parar' : '▶️ Jugar' }}
+          </button>
+          <button class="btn eliminar" (click)="confirmarEliminacion(juego)">Eliminar</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

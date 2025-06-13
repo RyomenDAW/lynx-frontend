@@ -1,4 +1,18 @@
-<div class="tienda-container page fade-in" >
+<div class="tienda-container page fade-in">
+
+<!--  ALERTA ÉXITO -->
+<div *ngIf="successMessage"
+     class="notificacion-flotante exito">
+  {{ successMessage }}
+</div>
+
+<!--  ALERTA ERROR -->
+<div *ngIf="errorMessage"
+     class="notificacion-flotante error">
+  {{ errorMessage }}
+</div>
+
+
   <h2 class="titulo-seccion">Lynx Store - Videojuegos</h2>
 
   <div *ngIf="tienePermiso()" class="acciones-superior">

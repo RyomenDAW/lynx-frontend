@@ -1,3 +1,12 @@
+<!-- 🔔 Notificaciones flotantes -->
+<div *ngIf="successMessage" class="notificacion notificacion-exito">
+  {{ successMessage }}
+</div>
+<div *ngIf="errorMessage" class="notificacion notificacion-error">
+  {{ errorMessage }}
+</div>
+
+
 <div class="fondos-container page fade-in">
   <h1>Recargar fondos</h1>
 
@@ -8,10 +17,9 @@
     <div id="paypal-button-container"></div>
 
     <div class="paypal-legal-warning">
-  <p>⚠️ Solo para mayores de 18 años.</p>
-  <p>💸 Usa esta función de forma responsable. No es reembolsable.</p>
-  <p>🔐 Los pagos son procesados de forma segura mediante PayPal.</p>
-</div>
-
+      <p>⚠️ Solo para mayores de 18 años.</p>
+      <p>💸 Usa esta función de forma responsable. No es reembolsable.</p>
+      <p>🔐 Los pagos son procesados de forma segura mediante PayPal.</p>
+    </div>
   </div>
 </div>

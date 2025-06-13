@@ -183,4 +183,50 @@
       }
     }
   }
+
+.notificacion-flotante {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  width: 100vw;
+  text-align: center;
+  z-index: 9999;
+
+  padding: 14px 24px;
+  margin: auto;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  animation: fadeSlideDown 0.5s ease-in-out;
+}
+
+.notificacion-flotante.exito {
+  background-color: #00ff88;
+  color: #002b18;
+  border: 2px solid #00cc66;
+  box-shadow: 0 0 15px #00ff88;
+  display: inline-block;
+}
+
+.notificacion-flotante.error {
+  background-color: #ff4d4d;
+  color: #320000;
+  border: 2px solid #cc0000;
+  box-shadow: 0 0 15px #ff4d4d;
+  display: inline-block;
+}
+
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 }

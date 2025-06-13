@@ -7,57 +7,62 @@
   color: white;
   padding: 2rem;
   min-height: 100vh;
+  background: radial-gradient(ellipse at top, #101020 0%, #000 100%);
   box-sizing: border-box;
-  position: relative;
 
   h1 {
     text-align: center;
-    color: rgb(13, 219, 219);
-    margin-bottom: 2rem;
+    color: #0ddbbb;
+    margin-bottom: 2.5rem;
+    font-size: 2.2rem;
+    text-shadow: 0 0 10px #00ffe5;
   }
 
   .bloque {
-    background: #0d0d1a;
-    border: 2px solid cyan;
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 0 15px cyan;
+    background: rgba(12, 12, 24, 0.9);
+    border: 1px solid #00d8ff;
+    border-radius: 14px;
+    padding: 1.8rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease-in-out;
 
     h2 {
-      margin-bottom: 1rem;
-      color: cyan;
-      font-size: 1.4rem;
-      border-bottom: 1px solid cyan;
+      margin-bottom: 1.2rem;
+      color: #00f0ff;
+      font-size: 1.5rem;
+      border-bottom: 1px solid #00f0ff;
       padding-bottom: 0.5rem;
     }
 
     input {
       width: 100%;
       padding: 0.6rem;
-      background: black;
-      color: cyan;
-      border: 1px solid cyan;
+      background: #000;
+      color: #00d8ff;
+      border: 1px solid #00d8ff;
       font-family: 'Orbitron';
       border-radius: 6px;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
     }
 
     button {
-      padding: 0.5rem 1rem;
+      padding: 0.45rem 1.2rem;
       background: transparent;
-      color: cyan;
-      border: 1px solid cyan;
+      color: #00d8ff;
+      border: 1px solid #00d8ff;
       font-family: 'Orbitron';
       cursor: pointer;
       transition: 0.2s;
       font-size: 0.9rem;
       border-radius: 6px;
-      margin: 10px;
+      margin: 6px;
 
       &:hover {
-        background-color: cyan;
+        background-color: #00d8ff;
         color: black;
+        box-shadow: 0 0 10px #00f0ff;
       }
 
       &.aceptar {
@@ -84,39 +89,55 @@
     .usuarios-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
+      gap: 1.5rem;
+      justify-content: flex-start;
 
       .card {
-        background: #10101a;
-        border: 1px solid cyan;
+        background: linear-gradient(to bottom, #111122, #080812);
+        border: 1px solid #00f0ff;
         border-radius: 10px;
-        padding: 1rem;
+        padding: 1.4rem;
+        width: 230px;
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
-        width: 280px;
-        box-shadow: 0 0 15px cyan;
-        margin-bottom: 2%;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+
+        &:hover {
+          transform: scale(1.03);
+          box-shadow: 0 0 20px #00e0ff;
+        }
 
         img {
           width: 80px;
           height: 80px;
           border-radius: 50%;
-          border: 2px solid cyan;
-          margin-bottom: 0.5rem;
+          border: 2px solid #00f0ff;
+          margin-bottom: 0.8rem;
           object-fit: cover;
         }
 
         p {
-          margin: 0.5rem 0;
+          margin: 0.4rem 0;
+          color: #00f0ff;
+          font-size: 1rem;
+          font-weight: bold;
         }
 
-        .acciones {
+        .acciones,
+        .acciones-inline {
           display: flex;
           gap: 0.5rem;
           justify-content: center;
+          flex-wrap: wrap;
+          margin-top: 0.5rem;
 
           button {
-            flex: 1;
+            padding: 0.4rem 0.6rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
           }
         }
       }
@@ -125,7 +146,7 @@
 }
 
 /* ======================== */
-/* FADE IN ANIMATION */
+/* ANIMACIÓN DE ENTRADA */
 /* ======================== */
 
 .fade-in {
@@ -145,6 +166,9 @@
     filter: brightness(1) blur(0);
   }
 }
+
+
+
 
 /* ======================== */
 /* BUSQUEDA DE USUARIO */
@@ -214,13 +238,15 @@
     transform: translateY(100%);
     opacity: 0.5;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
   }
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -400,6 +426,30 @@ html, body {
   margin: 0;
   word-break: break-word;
 }
+
+.mensaje-info {
+  background-color: #128133;
+  color: #00f0ff;
+  padding: 1rem;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Orbitron', sans-serif;
+  border-bottom: 2px solid cyan;
+  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
+  animation: aparecerMensaje 0.3s ease-in-out;
+}
+
+@keyframes aparecerMensaje {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 /* ======================== */
 /* RESPONSIVE CHAT */

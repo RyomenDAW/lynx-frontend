@@ -8,27 +8,68 @@
   </form>
 
   <form *ngIf="isRegisterMode" [formGroup]="registerForm" (ngSubmit)="onRegister()">
-    <input type="text" formControlName="username" placeholder="Nombre de usuario" class="form-control mb-2" />
-    <input type="text" formControlName="first_name" placeholder="Nombre real" class="form-control mb-2" />
-    <input type="text" formControlName="last_name" placeholder="Apellidos" class="form-control mb-2" />
-    <input type="email" formControlName="email" placeholder="Correo electrónico" class="form-control mb-2" />
-    <input type="password" formControlName="password" placeholder="Contraseña" class="form-control mb-2" />
-    <input type="password" formControlName="confirm_password" placeholder="Repite la contraseña" class="form-control mb-2" />
 
-    <select formControlName="rol" class="form-control mb-2">
-      <option *ngFor="let role of roles" [value]="role.value">{{ role.label }}</option>
-    </select>
+  <!-- USERNAME -->
+  <input type="text" formControlName="username" placeholder="Nombre de usuario" class="form-control mb-2" />
+  <div *ngIf="(registerForm.get('username')?.touched || registerForm.get('username')?.dirty) && registerForm.get('username')?.invalid" class="text-danger small mb-2">
+    Este campo es obligatorio.
+  </div>
+  <div *ngIf="fieldErrors['username']" class="text-danger small mb-2">{{ fieldErrors['username'] }}</div>
 
-    <input type="file"
-       (change)="onAvatarChange($event)"
-       accept="image/*"
-       class="form-control mb-2" />
+  <!-- NOMBRE -->
+  <input type="text" formControlName="first_name" placeholder="Nombre real" class="form-control mb-2" />
+  <div *ngIf="registerForm.get('first_name')?.touched && registerForm.get('first_name')?.invalid" class="text-danger small mb-2">
+    El nombre es obligatorio.
+  </div>
+  <div *ngIf="fieldErrors['first_name']" class="text-danger small mb-2">{{ fieldErrors['first_name'] }}</div>
 
-    <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">Registrarse</button>
-  </form>
+  <!-- APELLIDOS -->
+  <input type="text" formControlName="last_name" placeholder="Apellidos" class="form-control mb-2" />
+  <div *ngIf="registerForm.get('last_name')?.touched && registerForm.get('last_name')?.invalid" class="text-danger small mb-2">
+    Los apellidos son obligatorios.
+  </div>
+  <div *ngIf="fieldErrors['last_name']" class="text-danger small mb-2">{{ fieldErrors['last_name'] }}</div>
 
-  <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
-  <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+  <!-- EMAIL -->
+  <input type="email" formControlName="email" placeholder="Correo electrónico" class="form-control mb-2" />
+  <div *ngIf="fieldErrors['email']" class="text-danger small mb-2">{{ fieldErrors['email'] }}</div>
+
+  <!-- CONTRASEÑA -->
+  <input type="password" formControlName="password" placeholder="Contraseña" class="form-control mb-2" />
+  <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="text-danger small mb-2">
+    La contraseña es obligatoria.
+  </div>
+  <div *ngIf="fieldErrors['password']" class="text-danger small mb-2">{{ fieldErrors['password'] }}</div>
+
+  <!-- REPITE CONTRASEÑA -->
+  <input type="password" formControlName="confirm_password" placeholder="Repite la contraseña" class="form-control mb-2" />
+  <div *ngIf="registerForm.get('confirm_password')?.errors?.['mismatch']" class="text-danger small mb-2">
+    Las contraseñas no coinciden.
+  </div>
+  <div *ngIf="fieldErrors['confirm_password']" class="text-danger small mb-2">{{ fieldErrors['confirm_password'] }}</div>
+
+  <!-- ROL -->
+<select formControlName="rol" class="form-control mb-2">
+  <option value="" disabled>Selecciona un rol...</option>
+  <option *ngFor="let role of roles" [value]="role.value">{{ role.label }}</option>
+</select>
+
+  <div *ngIf="registerForm.get('rol')?.touched && registerForm.get('rol')?.invalid" class="text-danger small mb-2">
+    Este campo es requerido.
+  </div>
+  <div *ngIf="fieldErrors['rol']" class="text-danger small mb-2">{{ fieldErrors['rol'] }}</div>
+
+  <!-- AVATAR -->
+  <input type="file" (change)="onAvatarChange($event)" accept="image/*" class="form-control mb-2" />
+
+  <!-- BOTÓN -->
+  <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">Registrarse</button>
+</form>
+
+<!-- MENSAJES GLOBALES -->
+<div *ngIf="successMessage" class="alert alert-success mt-3 text-center">{{ successMessage }}</div>
+<div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">{{ errorMessage }}</div>
+
 
   <div class="text-center mt-3">
     <button class="btn btn-link" (click)="toggleMode()">

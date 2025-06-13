@@ -1,4 +1,5 @@
 export interface PerfilUsuario {
+  id: number;
   username: string;
   nombre_completo: string;
   email: string;

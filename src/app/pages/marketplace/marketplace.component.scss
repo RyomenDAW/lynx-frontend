@@ -1,17 +1,12 @@
+/* ========================= */
+/* TIPOGRAFÍA Y TEXTOS */
+/* ========================= */
 .titulo {
   font-family: 'Orbitron', sans-serif;
   color: #00f0ff;
   font-size: 32px;
   margin-bottom: 20px;
   text-align: center;
-}
-
-.botones-principales {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 20px;
 }
 
 .subtitulo {
@@ -22,6 +17,87 @@
   text-align: center;
 }
 
+label {
+  color: #00f0ff;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.mensaje-vacio {
+  font-family: 'Orbitron', sans-serif;
+  color: #ccc;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* ========================= */
+/* BOTONES Y CONTROLES */
+/* ========================= */
+.botones-principales {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+button {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #00f0ff;
+  color: #000;
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 15px;
+}
+
+button:hover {
+  background-color: #00c0cc;
+}
+
+.cerrar {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #00f0ff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* ========================= */
+/* INPUTS / FORMULARIOS */
+/* ========================= */
+input,
+select {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #00f0ff;
+  background-color: #222;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.formulario-venta {
+  border: 2px solid #00f0ff;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #111;
+  max-width: 400px;
+  margin: 20px auto;
+  box-shadow: 0 0 10px #00f0ff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ========================= */
+/* LAYOUT Y CONTENEDORES */
+/* ========================= */
 .contenedor-marketplace {
   display: flex;
   flex-wrap: wrap;
@@ -29,6 +105,9 @@
   gap: 20px;
 }
 
+/* ========================= */
+/* TARJETAS DE ÍTEM */
+/* ========================= */
 .item-card {
   display: flex;
   flex-direction: column;
@@ -55,93 +134,52 @@
   margin-bottom: 10px;
 }
 
-button {
-  margin-top: 8px;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  background-color: #00f0ff;
-  color: #000;
-  font-family: 'Orbitron', sans-serif;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #00c0cc;
-}
-
-.mensaje-vacio {
-  font-family: 'Orbitron', sans-serif;
-  color: #ccc;
-  font-size: 18px;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.formulario-venta {
-  border: 2px solid #00f0ff;
-  border-radius: 10px;
-  padding: 15px;
-  background-color: #111;
-  max-width: 400px;
-  margin: 20px auto;
-  box-shadow: 0 0 10px #00f0ff;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-label {
-  color: #00f0ff;
-  font-family: 'Orbitron', sans-serif;
-}
-
-input, select {
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #00f0ff;
-  background-color: #222;
-  color: #fff;
-  font-family: 'Orbitron', sans-serif;
-}
-
-/* MODAL */
+/* ========================= */
+/* MODALES */
+/* ========================= */
 .modal {
   position: fixed;
   top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  width: 100vw;
+  height: 70vh;
+  background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 9999;
+  padding: 0;
 }
 
 .modal-contenido {
-  position: relative;
   background-color: #111;
   border: 2px solid #00f0ff;
   border-radius: 12px;
-  padding: 20px;
-  width: 90%;
-  max-width: 1000px;
-  max-height: 90%;
+  width: 80vw;
+  height: 70vh;
+  padding: 2rem;
   overflow-y: auto;
   box-shadow: 0 0 20px #00f0ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
 
-.cerrar {
-  position: absolute;
-  top: 10px; right: 15px;
-  background: none;
-  border: none;
-  color: #00f0ff;
-  font-size: 24px;
-  cursor: pointer;
+.modal-contenido::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-contenido::-webkit-scrollbar-thumb {
+  background: #00f0ff;
+  border-radius: 4px;
+}
+.modal-contenido::-webkit-scrollbar-track {
+  background: #0a0a0a;
 }
 
+/* ========================= */
+/* ANIMACIÓN FADE IN */
+/* ========================= */
 .fade-in {
   opacity: 0;
   animation: fadeInPage 0.6s ease-in-out 0.15s forwards;
@@ -160,7 +198,27 @@ input, select {
   }
 }
 
-/* Responsive */
+/* ========================= */
+/* MEDIA QUERIES */
+/* ========================= */
+@media (max-width: 1200px) {
+  .item-card {
+    width: 200px;
+    min-height: 460px;
+  }
+
+  .item-img {
+    width: 160px;
+    height: 160px;
+  }
+
+  .modal-contenido {
+    width: 90vw;
+    height: 85vh;
+    padding: 1.5rem;
+  }
+}
+
 @media (max-width: 768px) {
   .item-card {
     width: 160px;
@@ -171,4 +229,40 @@ input, select {
     width: 140px;
     height: 140px;
   }
+
+  .modal-contenido {
+    width: 95vw;
+    height: 85vh;
+    padding: 1rem;
+  }
 }
+
+@media (max-width: 480px) {
+  .modal-contenido {
+    max-width: 100%;
+    height: 90%;
+    padding: 16px;
+  }
+
+  .item-img {
+    width: 100%;
+    max-width: 140px;
+    height: auto;
+  }
+}
+
+/* ========================= */
+/* ESTILO EXCLUSIVO BOTONES ADMIN */
+/* ========================= */
+.boton-admin {
+  font-size: 1.1rem;
+  background-color: #5c2688;
+  color: #fff;
+  border: 1px solid #0000004d;
+}
+
+.boton-admin:hover {
+  background-color: #65e000;
+  color: #000;
+}
+
