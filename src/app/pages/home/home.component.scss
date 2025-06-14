@@ -69,3 +69,56 @@
   box-shadow: 0 0 20px #00f2ff;
   transform: scale(1.05);
 }
+
+
+/* ======================== */
+/* RESPONSIVE HOME */
+/* ======================== */
+
+/* TABLET ≤ 992px */
+@media (max-width: 992px) {
+  .home-container {
+    padding: 30px 20px;
+    margin: 30px auto;
+  }
+
+  .home-title {
+    font-size: 2.4rem;
+  }
+
+  .home-subtitle {
+    font-size: 1.4rem;
+  }
+
+  .home-buttons .btn-login-acceso {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+}
+
+/* MÓVIL ≤ 576px */
+@media (max-width: 576px) {
+  .home-container {
+    padding: 20px 15px;
+    margin: 20px auto;
+  }
+
+  .home-title {
+    font-size: 1.8rem;
+  }
+
+  .home-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .home-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .home-buttons .btn-login-acceso {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+  }
+}

@@ -68,3 +68,74 @@
 }
 
 
+/* ========================= */
+/* RESPONSIVE DETALLE COMPONENT */
+/* ========================= */
+
+/* TABLETS <= 992px */
+@media (max-width: 992px) {
+  .detalle-container {
+    padding: 20px;
+  }
+
+  .detalle-content {
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+  }
+
+  .detalle-imagen {
+    width: 180px;
+    height: 180px;
+  }
+
+  .detalle-info {
+    max-height: none;
+    padding-right: 0;
+
+    p,
+    li {
+      font-size: 15px;
+    }
+  }
+
+  .btn-volver {
+    width: 100%;
+    font-size: 14px;
+  }
+}
+
+/* MÓVILES <= 576px */
+@media (max-width: 576px) {
+  .detalle-container {
+    padding: 15px;
+  }
+
+  .detalle-content {
+    gap: 20px;
+    padding: 14px;
+  }
+
+  .detalle-imagen {
+    width: 100%;
+    max-width: 160px;
+    height: auto;
+    border-width: 3px;
+  }
+
+  .detalle-info {
+    max-height: none;
+    overflow-y: visible;
+
+    p,
+    li {
+      font-size: 14px;
+    }
+  }
+
+  .btn-volver {
+    width: 100%;
+    font-size: 13px;
+    padding: 10px;
+  }
+}

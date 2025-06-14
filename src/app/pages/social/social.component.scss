@@ -463,3 +463,98 @@ body {
     height: 60vh;
   }
 }
+
+/* ========================= */
+/* RESPONSIVE TIENDA CONTAINER */
+/* ========================= */
+
+/* TABLETS <= 992px */
+@media (max-width: 992px) {
+  .tienda-container {
+    padding: 20px;
+
+    .titulo-seccion {
+      font-size: 26px;
+    }
+
+    .juego-portada {
+      width: 180px;
+      margin-right: 20px;
+    }
+
+    .juego-info h3 {
+      font-size: 20px;
+    }
+
+    .juego-info .juego-descripcion {
+      font-size: 13px;
+    }
+
+    .juego-info .juego-botones .btn-accion,
+    .juego-info .juego-botones .btn-secundario,
+    .juego-info .juego-botones .btn-eliminar {
+      font-size: 13px;
+      padding: 6px 14px;
+    }
+  }
+}
+
+
+/* MÓVILES <= 576px */
+@media (max-width: 576px) {
+  .tienda-container {
+    padding: 15px;
+
+    .acciones-superior {
+      flex-direction: column;
+      gap: 10px;
+
+      .btn {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+
+    .titulo-seccion {
+      font-size: 22px;
+    }
+
+    .fila-juego {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 16px;
+    }
+
+    .juego-portada {
+      width: 100%;
+      max-width: 200px;
+      margin: 0 0 15px 0;
+    }
+
+    .juego-info {
+      h3 {
+        font-size: 18px;
+      }
+
+      .juego-descripcion {
+        font-size: 13px;
+      }
+
+      .juego-botones {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+
+        .btn-accion,
+        .btn-secundario,
+        .btn-eliminar {
+          width: 100%;
+          font-size: 13px;
+          padding: 10px;
+        }
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-importar',
@@ -67,7 +68,7 @@ export class ImportarComponent {
     const token = localStorage.getItem('access_token');
     const headers = { Authorization: `Bearer ${token}` };
 
-    this.http.get<any>('http://127.0.0.1:8000/api/steam-search/', {
+    this.http.get<any>('${environment.apiUrl}/steam-search/', {
       headers,
       params: { q: this.searchTerm }
     })
@@ -92,7 +93,7 @@ export class ImportarComponent {
 
     this.mensaje = 'Importando juego...';
 
-    this.http.get<any>(`http://127.0.0.1:8000/api/steam-details/?appid=${juego.id}`, { headers })
+    this.http.get<any>(`${environment.apiUrl}/steam-details/?appid=${juego.id}`, { headers })
       .subscribe({
         next: async res => {
           const data = res[juego.id]?.data;
@@ -130,7 +131,7 @@ export class ImportarComponent {
 
           console.log('📦 Enviando:', videojuego);
 
-          this.http.post('http://127.0.0.1:8000/api/videojuegos/', videojuego, { headers })
+          this.http.post('${environment.apiUrl}/videojuegos/', videojuego, { headers })
             .subscribe({
               next: () => {
                 this.mensaje = '✅ Videojuego importado correctamente.';

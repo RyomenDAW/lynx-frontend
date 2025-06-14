@@ -187,3 +187,75 @@
     filter: brightness(1) blur(0);
   }
 }
+
+
+/* ======================== */
+/* RESPONSIVE - TABLET ≤ 992px */
+/* ======================== */
+@media (max-width: 992px) {
+  .codigos-container {
+    padding: 2rem;
+
+    h1 {
+      font-size: 2.2rem;
+    }
+
+    .bloque {
+      padding: 1.5rem;
+    }
+
+    .item-card {
+      width: 220px;
+      min-height: 460px;
+    }
+
+    .item-img {
+      width: 180px;
+      height: 180px;
+    }
+  }
+}
+
+/* ======================== */
+/* RESPONSIVE - MÓVIL ≤ 576px */
+/* ======================== */
+@media (max-width: 576px) {
+  .codigos-container {
+    padding: 1.5rem 1rem;
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    .bloque {
+      padding: 1rem;
+      margin: 1.5rem auto;
+    }
+
+    .bloque h2 {
+      font-size: 1.2rem;
+    }
+
+    .bloque input,
+    .bloque select,
+    .bloque button {
+      font-size: 0.9rem;
+      padding: 0.6rem;
+    }
+
+    .item-card {
+      width: 100%;
+      min-height: 440px;
+    }
+
+    .item-img {
+      width: 100%;
+      max-width: 160px;
+      height: auto;
+    }
+
+    .item-card button {
+      font-size: 0.9rem;
+    }
+  }
+}

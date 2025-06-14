@@ -54,7 +54,7 @@ export class CrearVideojuegoComponent {
 
   crearJuego() {
     if (this.juegoForm.valid) {
-      this.http.post('http://127.0.0.1:8000/api/videojuegos/', this.juegoForm.value).subscribe({
+      this.http.post('${environment.apiUrl}/videojuegos/', this.juegoForm.value).subscribe({
         next: () => {
           this.successMessage = 'Videojuego creado correctamente.';
           this.juegoForm.reset();

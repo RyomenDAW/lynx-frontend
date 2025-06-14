@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    // 🚀 FORZAMOS QUE SE CARGUE EL PERFIL EN CADA REFRESH
+    // FORZAMOS QUE SE CARGUE EL PERFIL EN CADA REFRESH
     const token = this.authService.getToken();
     if (token) {
       this.authService.fetchUserProfile();

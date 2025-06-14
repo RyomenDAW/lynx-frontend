@@ -139,7 +139,8 @@ select {
 /* ========================= */
 .modal {
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 70vh;
   background: rgba(0, 0, 0, 0.85);
@@ -169,10 +170,12 @@ select {
 .modal-contenido::-webkit-scrollbar {
   width: 6px;
 }
+
 .modal-contenido::-webkit-scrollbar-thumb {
   background: #00f0ff;
   border-radius: 4px;
 }
+
 .modal-contenido::-webkit-scrollbar-track {
   background: #0a0a0a;
 }
@@ -191,65 +194,147 @@ select {
     transform: translateY(20px);
     filter: brightness(0.8) blur(2px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
     filter: brightness(1) blur(0);
   }
 }
-
 /* ========================= */
-/* MEDIA QUERIES */
+/* RESPONSIVE TEXTOS Y BOTONES */
 /* ========================= */
-@media (max-width: 1200px) {
-  .item-card {
-    width: 200px;
-    min-height: 460px;
+
+/* TABLETS */
+@media (max-width: 992px) {
+  .titulo {
+    font-size: 26px;
   }
 
-  .item-img {
-    width: 160px;
-    height: 160px;
+  .subtitulo {
+    font-size: 20px;
   }
 
-  .modal-contenido {
-    width: 90vw;
-    height: 85vh;
-    padding: 1.5rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .item-card {
-    width: 160px;
-    min-height: 450px;
+  button {
+    font-size: 14px;
+    padding: 7px 10px;
   }
 
-  .item-img {
-    width: 140px;
-    height: 140px;
-  }
-
-  .modal-contenido {
-    width: 95vw;
-    height: 85vh;
-    padding: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .modal-contenido {
+  .formulario-venta {
+    padding: 12px;
     max-width: 100%;
-    height: 90%;
-    padding: 16px;
+  }
+
+  input,
+  select {
+    font-size: 14px;
+  }
+
+  .mensaje-vacio {
+    font-size: 16px;
+  }
+
+  .modal-contenido {
+    padding: 1.5rem;
+    font-size: 14px;
+  }
+
+  .botones-principales {
+    gap: 10px;
+  }
+}
+
+/* MÓVILES GRANDES */
+@media (max-width: 768px) {
+  .titulo {
+    font-size: 22px;
+  }
+
+  .subtitulo {
+    font-size: 18px;
+  }
+
+  button {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .formulario-venta {
+    gap: 8px;
+    padding: 10px;
+  }
+
+  input,
+  select {
+    font-size: 13px;
+  }
+
+  .mensaje-vacio {
+    font-size: 15px;
+  }
+
+  .botones-principales {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-contenido {
+    padding: 1.2rem;
+  }
+}
+
+/* MÓVILES PEQUEÑOS */
+@media (max-width: 480px) {
+  .titulo {
+    font-size: 20px;
+  }
+
+  .subtitulo {
+    font-size: 16px;
+  }
+
+  button {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+
+  .formulario-venta {
+    padding: 8px;
+  }
+
+  input,
+  select {
+    font-size: 12px;
+  }
+
+  .mensaje-vacio {
+    font-size: 14px;
+  }
+
+  .modal-contenido {
+    padding: 1rem;
+    font-size: 13px;
+    height: 92%;
+  }
+
+  .item-card {
+    width: 140px;
+    min-height: 420px;
   }
 
   .item-img {
     width: 100%;
-    max-width: 140px;
+    max-width: 120px;
     height: auto;
   }
+
+  .botones-principales {
+    gap: 8px;
+    flex-direction: column;
+  }
 }
+
+
 
 /* ========================= */
 /* ESTILO EXCLUSIVO BOTONES ADMIN */
@@ -265,4 +350,3 @@ select {
   background-color: #65e000;
   color: #000;
 }
-

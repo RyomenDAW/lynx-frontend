@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JuegoBiblioteca } from './biblioteca.model';
 
-const API_URL = 'http://127.0.0.1:8000/api';
+const API_URL = '${environment.apiUrl}';
 
 @Injectable({
   providedIn: 'root'

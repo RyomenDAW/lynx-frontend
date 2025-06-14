@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Usuario } from '../social.model'; // <--- AÑADE ESTA IMPORTACIÓN
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -34,7 +35,7 @@ export class PerfilUsuarioComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.http.get<any>(`http://127.0.0.1:8000/api/social/${id}/profile/`, this.getHeaders())
+      this.http.get<any>(`${environment.apiUrl}/social/${id}/profile/`, this.getHeaders())
         .subscribe(res => {
           this.usuario = res;
         });

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../auth/auth.service';
 import { RouterModule } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-tienda',
@@ -36,8 +37,8 @@ export class TiendaComponent implements OnInit {
     const token = localStorage.getItem('access_token');
     const headers = { Authorization: `Bearer ${token}` };
 
-    this.http.get<any[]>('http://127.0.0.1:8000/api/videojuegos/', { headers }).subscribe(videojuegos => {
-      this.http.get<any[]>('http://127.0.0.1:8000/api/biblioteca/', { headers }).subscribe(biblioteca => {
+    this.http.get<any[]>('${environment.apiUrl}/videojuegos/', { headers }).subscribe(videojuegos => {
+      this.http.get<any[]>('${environment.apiUrl}/biblioteca/', { headers }).subscribe(biblioteca => {
         const comprados = biblioteca.map(b => b.juego.id);
 
         this.videojuegos = videojuegos.map(juego => ({
@@ -80,7 +81,7 @@ comprarVideojuego(juego: any) {
 
   const body = { juego_id: juego.id };
 
-  this.http.post('http://127.0.0.1:8000/api/biblioteca/comprar/', body, { headers }).subscribe({
+  this.http.post('${environment.apiUrl}/biblioteca/comprar/', body, { headers }).subscribe({
     next: () => {
       juego.comprado = true;
       this.authService.fetchUserProfile();
@@ -128,7 +129,7 @@ comprarVideojuego(juego: any) {
     const headers = { Authorization: `Bearer ${token}` };
 
     if (confirm('¿Estás seguro de que quieres eliminar este videojuego?')) {
-      this.http.delete(`http://127.0.0.1:8000/api/videojuegos/${id}/`, { headers })
+      this.http.delete(`${environment.apiUrl}/videojuegos/${id}/`, { headers })
         .subscribe({
           next: () => {
             this.mostrarMensaje('success', '✅ Videojuego eliminado correctamente.');

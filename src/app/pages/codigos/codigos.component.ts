@@ -32,9 +32,9 @@ export class CodigosComponent implements OnInit {
     descripcion: '',
   };
 
-  private API_CANJEAR = 'http://127.0.0.1:8000/api/codigos/canjear/';
-  private API_CODIGOS = 'http://127.0.0.1:8000/api/codigos/';
-  private API_VIDEOJUEGOS = 'http://127.0.0.1:8000/api/videojuegos/';
+  private API_CANJEAR = '${environment.apiUrl}/codigos/canjear/';
+  private API_CODIGOS = '${environment.apiUrl}/codigos/';
+  private API_VIDEOJUEGOS = '${environment.apiUrl}/videojuegos/';
 
 constructor(private http: HttpClient, private authService: AuthService) {}
 

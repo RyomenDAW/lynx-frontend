@@ -4,7 +4,7 @@
 <nav class="navbar-lynx">
   <div class="navbar-left">
     <a routerLink="/" class="logo">Lynx</a>
-    <a routerLink="/tienda">Tienda</a>
+    <a *ngIf="userInfo" routerLink="/tienda">Tienda</a>
     <a *ngIf="userInfo" routerLink="/biblioteca">Biblioteca</a>
     <a *ngIf="userInfo" routerLink="/perfil">Perfil</a>
     <a *ngIf="userInfo" routerLink="/fondos">Fondos</a>

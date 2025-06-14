@@ -1,5 +1,3 @@
-# Dockerfile para frontend Angular
-
 # Etapa de construcción
 FROM node:18-alpine as build
 
@@ -9,20 +7,16 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 
-# Ejecutar build producción
+# Build en producción
 RUN npm run build --prod
 
-# Verificar que la carpeta build existe y mostrar contenido (solo para debug)
-RUN ls -la /app/dist
-RUN ls -la /app/dist/lynx-app
-
-# Etapa para servir con nginx
+# Etapa de nginx
 FROM nginx:alpine
 
-# Copiar build Angular al directorio servido por nginx
+# Copia del build generado
 COPY --from=build /app/dist/lynx-app /usr/share/nginx/html
 
-# Copiar configuración personalizada de nginx para SPA Angular
+# Configuración personalizada de NGINX para Angular SPA
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80

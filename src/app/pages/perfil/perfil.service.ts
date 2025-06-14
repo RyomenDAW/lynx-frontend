@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PerfilUsuario } from './perfil.model';
 
-const API_URL = 'http://127.0.0.1:8000/api/usuarios/perfil/';
+const API_URL = '${environment.apiUrl}/usuarios/perfil/';
 
 @Injectable({
   providedIn: 'root'

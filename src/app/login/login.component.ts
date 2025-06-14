@@ -137,7 +137,7 @@ onRegister() {
     this.successMessage = '';
     console.log('Formulario a enviar:', formData);
 
-    this.http.post('http://127.0.0.1:8000/api/register/', formData).subscribe({
+    this.http.post('${environment.apiUrl}/register/', formData).subscribe({
       next: () => {
         this.successMessage = '✅ Usuario creado correctamente. Ahora puedes iniciar sesión.';
         this.registerForm.reset();

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-detalle',
@@ -31,7 +32,7 @@ export class DetalleComponent implements OnInit {
 
     const headers = { Authorization: `Bearer ${token}` };
 
-    this.http.get<any>(`http://127.0.0.1:8000/api/videojuegos/${id}/`, { headers }).subscribe({
+    this.http.get<any>(`${environment.apiUrl}/videojuegos/${id}/`, { headers }).subscribe({
       next: (data) => {
         this.videojuego = data;
       },

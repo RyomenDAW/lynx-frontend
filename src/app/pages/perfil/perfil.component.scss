@@ -317,3 +317,66 @@
       0 0 42px #00ff7f;
   }
 }
+
+/* ======================== */
+/* RESPONSIVE SOCIAL PAGE */
+/* ======================== */
+
+
+/* ======================== */
+/* MEDIA QUERIES */
+/* ======================== */
+
+@media (max-width: 768px) {
+  .perfil-container {
+    padding: 1.5rem;
+  }
+
+  .perfil-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .perfil-info-header h2 {
+    font-size: 2rem;
+  }
+
+  .perfil-content {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .perfil-content .section {
+    width: 100%;
+    padding: 1.2rem;
+  }
+
+  .amigos-grid {
+    justify-content: center;
+
+    .amigo-card {
+      width: 100%;
+      max-width: 140px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .perfil-container {
+    padding: 1rem;
+  }
+
+  .perfil-info-header h2 {
+    font-size: 1.6rem;
+  }
+
+  .perfil-content .section p span {
+    min-width: 100px;
+  }
+
+  .avatar-wrapper img {
+    width: 140px;
+    height: 140px;
+  }
+}

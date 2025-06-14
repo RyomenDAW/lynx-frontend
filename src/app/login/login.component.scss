@@ -88,3 +88,58 @@
 
 }
 
+/* ========================= */
+/* RESPONSIVE - TABLET ≤ 768px */
+/* ========================= */
+@media (max-width: 768px) {
+  .login-container {
+    margin: 60px auto;
+    padding: 30px;
+  }
+
+  .login-container h2 {
+    font-size: 1.8rem;
+  }
+
+  .login-container input,
+  .login-container select {
+    font-size: 0.95rem;
+    padding: 12px;
+  }
+
+  .login-container .btn-success,
+  .login-container .btn-primary {
+    font-size: 1rem;
+    padding: 12px 0;
+  }
+}
+
+/* ========================= */
+/* RESPONSIVE - MÓVIL ≤ 480px */
+/* ========================= */
+@media (max-width: 480px) {
+  .login-container {
+    margin: 40px 16px;
+    padding: 24px;
+  }
+
+  .login-container h2 {
+    font-size: 1.6rem;
+  }
+
+  .login-container input,
+  .login-container select {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .login-container .btn-success,
+  .login-container .btn-primary {
+    font-size: 0.95rem;
+    padding: 10px 0;
+  }
+
+  .login-container .btn-link {
+    font-size: 0.9rem;
+  }
+}

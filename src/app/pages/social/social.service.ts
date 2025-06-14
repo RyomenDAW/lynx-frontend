@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario, Amistad } from './social.model';
 
-const API_URL = 'http://127.0.0.1:8000/api/social/';
+const API_URL = '${environment.apiUrl}/social/';
 
 @Injectable({
   providedIn: 'root'
