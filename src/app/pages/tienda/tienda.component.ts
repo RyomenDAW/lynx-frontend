@@ -37,8 +37,8 @@ export class TiendaComponent implements OnInit {
     const token = localStorage.getItem('access_token');
     const headers = { Authorization: `Bearer ${token}` };
 
-    this.http.get<any[]>('${environment.apiUrl}/videojuegos/', { headers }).subscribe(videojuegos => {
-      this.http.get<any[]>('${environment.apiUrl}/biblioteca/', { headers }).subscribe(biblioteca => {
+    this.http.get<any[]>(`${environment.apiUrl}/videojuegos/`, { headers }).subscribe(videojuegos => {
+      this.http.get<any[]>(`${environment.apiUrl}/biblioteca/`, { headers }).subscribe(biblioteca => {
         const comprados = biblioteca.map(b => b.juego.id);
 
         this.videojuegos = videojuegos.map(juego => ({
@@ -81,12 +81,12 @@ comprarVideojuego(juego: any) {
 
   const body = { juego_id: juego.id };
 
-  this.http.post('${environment.apiUrl}/biblioteca/comprar/', body, { headers }).subscribe({
+  this.http.post(`${environment.apiUrl}/biblioteca/comprar/`, body, { headers }).subscribe({
     next: () => {
       juego.comprado = true;
       this.authService.fetchUserProfile();
       this.mostrarMensaje('success', '✅ Juego comprado correctamente.');
-      this.cdRef.detectChanges(); // ⬅️ POR SI ACASO
+      this.cdRef.detectChanges(); // cdref 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
     error: (err) => {
@@ -100,7 +100,7 @@ comprarVideojuego(juego: any) {
       }
 
       this.mostrarMensaje('error', msg);
-      this.cdRef.detectChanges(); // ⬅️ AQUÍ ES LA CLAVE
+      this.cdRef.detectChanges(); // detectamos cambios?
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }

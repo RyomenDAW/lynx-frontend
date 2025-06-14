@@ -68,7 +68,7 @@ export class ImportarComponent {
     const token = localStorage.getItem('access_token');
     const headers = { Authorization: `Bearer ${token}` };
 
-    this.http.get<any>('${environment.apiUrl}/steam-search/', {
+    this.http.get<any>(`${environment.apiUrl}/steam-search/`, {
       headers,
       params: { q: this.searchTerm }
     })
@@ -131,7 +131,7 @@ export class ImportarComponent {
 
           console.log('📦 Enviando:', videojuego);
 
-          this.http.post('${environment.apiUrl}/videojuegos/', videojuego, { headers })
+          this.http.post(`${environment.apiUrl}/videojuegos/`, videojuego, { headers })
             .subscribe({
               next: () => {
                 this.mensaje = '✅ Videojuego importado correctamente.';

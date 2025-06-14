@@ -5,6 +5,7 @@ import { AuthService } from '../auth/auth.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -137,7 +138,7 @@ onRegister() {
     this.successMessage = '';
     console.log('Formulario a enviar:', formData);
 
-    this.http.post('${environment.apiUrl}/register/', formData).subscribe({
+    this.http.post(`${environment.apiUrl}/register/`, formData).subscribe({
       next: () => {
         this.successMessage = '✅ Usuario creado correctamente. Ahora puedes iniciar sesión.';
         this.registerForm.reset();

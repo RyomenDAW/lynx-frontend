@@ -70,7 +70,7 @@ export class MarketplaceComponent {
 
   cargarMarketplace(): void {
     const headers = this.authHeaders();
-    this.http.get<any[]>('${environment.apiUrl}/marketplace/', { headers })
+    this.http.get<any[]>(`${environment.apiUrl}/marketplace/`, { headers })
       .subscribe({
         next: data => this.marketplaceItems = data,
         error: err => this.mostrarMensaje('❌ Error al cargar marketplace', true)
@@ -79,7 +79,7 @@ export class MarketplaceComponent {
 
   cargarUserItems(): void {
     const headers = this.authHeaders();
-    this.http.get<any[]>('${environment.apiUrl}/inventario/', { headers })
+    this.http.get<any[]>(`${environment.apiUrl}/inventario/`, { headers })
       .subscribe({
         next: inventario => {
           const userId = parseInt(localStorage.getItem('user_id') || '0');
@@ -94,7 +94,7 @@ export class MarketplaceComponent {
 
   cargarAllItems(): void {
     const headers = this.authHeaders();
-    this.http.get<any[]>('${environment.apiUrl}/items/', { headers })
+    this.http.get<any[]>(`${environment.apiUrl}/items/`, { headers })
       .subscribe({
         next: items => this.allItems = items.map(i => ({ ...i, asignarAUsername: '' })),
         error: () => this.mostrarMensaje('❌ Error al cargar ítems del sistema', true)
@@ -126,7 +126,7 @@ export class MarketplaceComponent {
       precio: this.precioVenta
     };
 
-    this.http.post('${environment.apiUrl}/marketplace-venta/poner_en_venta/', body, { headers })
+    this.http.post(`${environment.apiUrl}/marketplace-venta/poner_en_venta/`, body, { headers })
       .subscribe({
         next: () => {
           this.mostrarMensaje('✅ Ítem puesto en venta correctamente');
@@ -154,7 +154,7 @@ export class MarketplaceComponent {
       juego: this.nuevoJuegoId
     };
 
-    this.http.post('${environment.apiUrl}/items/', body, { headers })
+    this.http.post(`${environment.apiUrl}/items/`, body, { headers })
       .subscribe({
         next: (res: any) => {
           this.mostrarMensaje('✅ ¡Ítem creado correctamente!');
@@ -228,7 +228,7 @@ export class MarketplaceComponent {
       cantidad: cantidad
     };
 
-    this.http.post('${environment.apiUrl}/inventario/eliminar_item/', body, { headers })
+    this.http.post(`${environment.apiUrl}/inventario/eliminar_item/`, body, { headers })
       .subscribe({
         next: () => {
           this.mostrarMensaje(`✅ Se eliminó correctamente "${entry.item.nombre}"`);
@@ -246,7 +246,7 @@ export class MarketplaceComponent {
       cantidad: 1
     };
 
-    this.http.post('${environment.apiUrl}/inventario/asignar_item/', body, { headers })
+    this.http.post(`${environment.apiUrl}/inventario/asignar_item/`, body, { headers })
       .subscribe({
         next: () => {
           this.mostrarMensaje('✅ Ítem asignado a tu cuenta');
@@ -271,7 +271,7 @@ export class MarketplaceComponent {
       cantidad: 1
     };
 
-    this.http.post('${environment.apiUrl}/inventario/asignar_item/', body, { headers })
+    this.http.post(`${environment.apiUrl}/inventario/asignar_item/`, body, { headers })
       .subscribe({
         next: () => {
           this.mostrarMensaje(`✅ Ítem asignado a ${usernameFinal}`);

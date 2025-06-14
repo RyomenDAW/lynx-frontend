@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-crear-videojuego',
@@ -54,7 +55,7 @@ export class CrearVideojuegoComponent {
 
   crearJuego() {
     if (this.juegoForm.valid) {
-      this.http.post('${environment.apiUrl}/videojuegos/', this.juegoForm.value).subscribe({
+      this.http.post(`${environment.apiUrl}/videojuegos/`, this.juegoForm.value).subscribe({
         next: () => {
           this.successMessage = 'Videojuego creado correctamente.';
           this.juegoForm.reset();

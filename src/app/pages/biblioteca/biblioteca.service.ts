@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JuegoBiblioteca } from './biblioteca.model';
+import { environment } from '../../../environments/environment';
 
-const API_URL = '${environment.apiUrl}';
+const API_URL = `${environment.apiUrl}`;
 
 @Injectable({
   providedIn: 'root'

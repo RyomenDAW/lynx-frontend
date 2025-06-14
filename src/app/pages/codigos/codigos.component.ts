@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../auth/auth.service';
+import { environment } from '../../../environments/environment';
 
 interface Videojuego {
   id: number;
@@ -32,9 +33,9 @@ export class CodigosComponent implements OnInit {
     descripcion: '',
   };
 
-  private API_CANJEAR = '${environment.apiUrl}/codigos/canjear/';
-  private API_CODIGOS = '${environment.apiUrl}/codigos/';
-  private API_VIDEOJUEGOS = '${environment.apiUrl}/videojuegos/';
+  private API_CANJEAR = `${environment.apiUrl}/codigos/canjear/`;
+  private API_CODIGOS = `${environment.apiUrl}/codigos/`;
+  private API_VIDEOJUEGOS = `${environment.apiUrl}/videojuegos/`;
 
 constructor(private http: HttpClient, private authService: AuthService) {}
 

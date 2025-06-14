@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  private apiUrl = '${environment.apiUrl}/token/';
-  private profileUrl = '${environment.apiUrl}/usuarios/me/';
+  private apiUrl = `${environment.apiUrl}/token/`;
+  private profileUrl = `${environment.apiUrl}/usuarios/me/`;
   private userSubject = new BehaviorSubject<any>(null);
 
   constructor(private http: HttpClient, private router: Router) {
@@ -61,7 +62,7 @@ export class AuthService {
   const token = localStorage.getItem('access_token');
   const headers = { Authorization: `Bearer ${token}` };
 
-  return this.http.get<any>('${environment.apiUrl}/usuarios/me/', { headers });
+  return this.http.get<any>(`${environment.apiUrl}/usuarios/me/`, { headers });
   }
 
   isAuthenticated(): boolean {
