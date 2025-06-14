@@ -19,18 +19,21 @@ export class AuthService {
     }
   }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(this.apiUrl, { username, password }).pipe(
-      tap(response => {
-        localStorage.setItem('access_token', response.access);
+login(username: string, password: string): Observable<any> {
+  const headers = {
+    'Content-Type': 'application/json'
+  };
 
-        // Esperamos un pelín para asegurar que el token esté guardado antes del fetch
-        setTimeout(() => {
-          this.fetchUserProfile();
-        }, 50);
-      })
-    );
-  }
+  return this.http.post<any>(this.apiUrl, { username, password }, { headers }).pipe(
+    tap(response => {
+      localStorage.setItem('access_token', response.access);
+      setTimeout(() => {
+        this.fetchUserProfile();
+      }, 50);
+    })
+  );
+}
+
 
   logout() {
     localStorage.removeItem('access_token');
