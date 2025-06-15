@@ -25,16 +25,16 @@ export class CrearVideojuegoComponent {
     private router: Router
   ) {
     this.juegoForm = this.fb.group({
-      nombre: ['', Validators.required],
-      descripcion: ['', Validators.required],
-      desarrollador: ['', Validators.required],
-      distribuidor: ['', Validators.required],
-      genero: ['', Validators.required],
-      plataforma: ['', Validators.required],
-      precio: [0, [Validators.required, Validators.min(0)]],
+      nombre: ['', [Validators.required, Validators.minLength(2)]],
+      descripcion: ['', [Validators.required, Validators.minLength(10)]],
+      desarrollador: ['', [Validators.required, Validators.minLength(2)]],
+      distribuidor: ['', [Validators.required, Validators.minLength(2)]],
+      genero: ['', [Validators.required, Validators.minLength(3)]],
+      plataforma: ['', [Validators.required, Validators.minLength(2)]],
+      precio: [null, [Validators.required, Validators.min(0.01)]],
       fecha_lanzamiento: ['', Validators.required],
-      requisitos_minimos: ['', Validators.required],
-      requisitos_recomendados: ['', Validators.required],
+      requisitos_minimos: ['', [Validators.required, Validators.minLength(5)]],
+      requisitos_recomendados: ['', [Validators.required, Validators.minLength(5)]],
       imagen_portada: [null]
     });
   }
@@ -57,14 +57,23 @@ export class CrearVideojuegoComponent {
     if (this.juegoForm.valid) {
       this.http.post(`${environment.apiUrl}/videojuegos/`, this.juegoForm.value).subscribe({
         next: () => {
-          this.successMessage = 'Videojuego creado correctamente.';
-          this.juegoForm.reset();
-          this.router.navigate(['/tienda']);
+          this.successMessage = '✅ Videojuego creado correctamente.';
+          this.errorMessage = '';
+
+          setTimeout(() => {
+            this.juegoForm.reset();
+            this.router.navigate(['/tienda']);
+          }, 2000);  // ✅ Espera 2 segundos antes de redirigir
         },
         error: (err) => {
-          this.errorMessage = err.error?.error || 'Error al crear el videojuego.';
+          this.errorMessage = err.error?.error || '❌ Error al crear el videojuego.';
+          this.successMessage = '';
         }
       });
+    } else {
+      this.errorMessage = '❌ Rellena todos los campos correctamente antes de enviar.';
+      this.successMessage = '';
     }
   }
+
 }

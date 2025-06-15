@@ -2,42 +2,85 @@
   <h2>Crear nuevo videojuego</h2>
 
   <form [formGroup]="juegoForm" (ngSubmit)="crearJuego()">
+    <!-- Nombre -->
     <label>Nombre</label>
     <input type="text" formControlName="nombre" placeholder="Nombre del videojuego" />
+    <div class="error" *ngIf="juegoForm.get('nombre')?.touched && juegoForm.get('nombre')?.invalid">
+      El nombre es obligatorio y debe tener al menos 2 caracteres.
+    </div>
 
+    <!-- Descripción -->
     <label>Descripción</label>
     <textarea formControlName="descripcion" placeholder="Descripción del videojuego"></textarea>
+    <div class="error" *ngIf="juegoForm.get('descripcion')?.touched && juegoForm.get('descripcion')?.invalid">
+      La descripción es obligatoria y debe tener al menos 10 caracteres.
+    </div>
 
+    <!-- Desarrollador -->
     <label>Desarrollador</label>
     <input type="text" formControlName="desarrollador" placeholder="Nombre del desarrollador" />
+    <div class="error" *ngIf="juegoForm.get('desarrollador')?.touched && juegoForm.get('desarrollador')?.invalid">
+      El desarrollador es obligatorio y debe tener al menos 2 caracteres.
+    </div>
 
+    <!-- Distribuidor -->
     <label>Distribuidor</label>
     <input type="text" formControlName="distribuidor" placeholder="Nombre del distribuidor" />
+    <div class="error" *ngIf="juegoForm.get('distribuidor')?.touched && juegoForm.get('distribuidor')?.invalid">
+      El distribuidor es obligatorio y debe tener al menos 2 caracteres.
+    </div>
 
+    <!-- Género -->
     <label>Género</label>
     <input type="text" formControlName="genero" placeholder="Ej: Acción, Aventura" />
+    <div class="error" *ngIf="juegoForm.get('genero')?.touched && juegoForm.get('genero')?.invalid">
+      El género es obligatorio y debe tener al menos 3 caracteres.
+    </div>
 
+    <!-- Plataforma -->
     <label>Plataforma</label>
     <input type="text" formControlName="plataforma" placeholder="Ej: PC, Steam Deck..." />
+    <div class="error" *ngIf="juegoForm.get('plataforma')?.touched && juegoForm.get('plataforma')?.invalid">
+      La plataforma es obligatoria y debe tener al menos 2 caracteres.
+    </div>
 
+    <!-- Precio -->
     <label>Precio (€)</label>
     <input type="number" formControlName="precio" placeholder="Precio en euros" />
+    <div class="error" *ngIf="juegoForm.get('precio')?.touched && juegoForm.get('precio')?.invalid">
+      El precio debe ser mayor que 0.
+    </div>
 
+    <!-- Fecha lanzamiento -->
     <label>Fecha de lanzamiento</label>
     <input type="date" formControlName="fecha_lanzamiento" />
+    <div class="error" *ngIf="juegoForm.get('fecha_lanzamiento')?.touched && juegoForm.get('fecha_lanzamiento')?.invalid">
+      La fecha de lanzamiento es obligatoria.
+    </div>
 
+    <!-- Requisitos mínimos -->
     <label>Requisitos mínimos</label>
     <textarea formControlName="requisitos_minimos" placeholder="Especificaciones mínimas del sistema"></textarea>
+    <div class="error" *ngIf="juegoForm.get('requisitos_minimos')?.touched && juegoForm.get('requisitos_minimos')?.invalid">
+      Los requisitos mínimos son obligatorios.
+    </div>
 
+    <!-- Requisitos recomendados -->
     <label>Requisitos recomendados</label>
     <textarea formControlName="requisitos_recomendados" placeholder="Especificaciones recomendadas del sistema"></textarea>
+    <div class="error" *ngIf="juegoForm.get('requisitos_recomendados')?.touched && juegoForm.get('requisitos_recomendados')?.invalid">
+      Los requisitos recomendados son obligatorios.
+    </div>
 
+    <!-- Imagen -->
     <label>Portada (imagen)</label>
     <input type="file" (change)="onImageChange($event)" accept="image/*" />
 
+    <!-- Botón -->
     <button type="submit" [disabled]="juegoForm.invalid">Crear Videojuego</button>
   </form>
 
+  <!-- Mensajes de error / éxito -->
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
   <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
 </div>
