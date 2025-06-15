@@ -50,7 +50,7 @@ export class LoginComponent {
       confirm_password: ['', Validators.required],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, this.validarDominioCorreo]],
       rol: ['', Validators.required],
       avatar: [null],
     });
@@ -65,6 +65,8 @@ export class LoginComponent {
     this.errorMessage = '';
     this.successMessage = '';
   }
+
+
 
   onLogin() {
     this.errorMessage = '';
@@ -158,21 +160,23 @@ export class LoginComponent {
     });
   }
 
-  mostrarErroresCampo(campo: string): string | null {
-    const control = this.registerForm.get(campo);
+mostrarErroresCampo(campo: string): string | null {
+  const control = this.registerForm.get(campo);
 
-    if (this.fieldErrors[campo]) {
-      return this.fieldErrors[campo];
+  if (this.fieldErrors[campo]) return this.fieldErrors[campo];
+
+  if (control && control.touched && control.invalid) {
+    if (control.errors?.['required']) return 'Este campo es obligatorio.';
+    if (campo === 'email') {
+      if (control.errors?.['email']) return 'Formato de email no válido.';
+      if (control.errors?.['dominioInvalido']) return 'Solo se permiten correos @gmail.com o @hotmail.com.';
     }
-
-    if (control && control.touched && control.invalid) {
-      if (control.errors?.['required']) return 'Este campo es obligatorio.';
-      if (campo === 'email' && control.errors?.['email']) return 'Email no válido.';
-      if (campo === 'confirm_password' && control.errors?.['mismatch']) return 'Las contraseñas no coinciden.';
-    }
-
-    return null;
+    if (campo === 'confirm_password' && control.errors?.['mismatch']) return 'Las contraseñas no coinciden.';
   }
+
+  return null;
+}
+
 
   handleHttpError(err: HttpErrorResponse): string {
     if (err.status === 0) return 'No se pudo conectar con el servidor.';
@@ -194,4 +198,13 @@ export class LoginComponent {
       this.registerForm.get('confirm_password')?.setErrors(null);
     }
   }
+
+  validarDominioCorreo(control: any) {
+  const correo = control.value;
+  if (!correo) return null;
+
+  const permitido = correo.endsWith('@gmail.com') || correo.endsWith('@hotmail.com');
+  return permitido ? null : { dominioInvalido: true };
+}
+
 }
