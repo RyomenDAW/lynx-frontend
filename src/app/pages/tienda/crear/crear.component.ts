@@ -35,8 +35,11 @@ export class CrearVideojuegoComponent {
       fecha_lanzamiento: ['', Validators.required],
       requisitos_minimos: ['', [Validators.required, Validators.minLength(5)]],
       requisitos_recomendados: ['', [Validators.required, Validators.minLength(5)]],
+      soporte_mando: [false],             // ✅ CHECKBOX OPCIONAL
+      disponible: [true],                 // ✅ SIEMPRE TRUE
       imagen_portada: [null]
     });
+
   }
 
   onImageChange(event: Event) {

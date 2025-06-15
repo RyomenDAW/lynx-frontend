@@ -72,6 +72,16 @@
       Los requisitos recomendados son obligatorios.
     </div>
 
+    <!-- Soporte de mando -->
+<label class="checkbox-group">
+  <input type="checkbox" formControlName="soporte_mando" />
+  Soporte de mando
+</label>
+
+<!-- Campo oculto disponible -->
+<input type="hidden" formControlName="disponible" />
+
+
     <!-- Imagen -->
     <label>Portada (imagen)</label>
     <input type="file" (change)="onImageChange($event)" accept="image/*" />
