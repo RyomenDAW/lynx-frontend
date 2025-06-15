@@ -4,7 +4,7 @@
   <form [formGroup]="juegoForm" (ngSubmit)="crearJuego()">
     <!-- Nombre -->
     <label>Nombre</label>
-    <input type="text" formControlName="nombre" placeholder="Nombre del videojuego" />
+    <input type="text" formControlName="titulo" placeholder="Nombre del videojuego" />
     <div class="error" *ngIf="juegoForm.get('nombre')?.touched && juegoForm.get('nombre')?.invalid">
       El nombre es obligatorio y debe tener al menos 2 caracteres.
     </div>

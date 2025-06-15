@@ -25,7 +25,7 @@ export class CrearVideojuegoComponent {
     private router: Router
   ) {
     this.juegoForm = this.fb.group({
-      nombre: ['', [Validators.required, Validators.minLength(2)]],
+      titulo: ['', [Validators.required, Validators.minLength(2)]],
       descripcion: ['', [Validators.required, Validators.minLength(10)]],
       desarrollador: ['', [Validators.required, Validators.minLength(2)]],
       distribuidor: ['', [Validators.required, Validators.minLength(2)]],
