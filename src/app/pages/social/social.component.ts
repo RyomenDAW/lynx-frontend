@@ -90,7 +90,7 @@ rechazarSolicitud(id: number) {
     return this.amigos.some(a => a.id === id);
   }
 
-  // CHAT 🚀
+  // CHAT 
 
   abrirChat(amigo: Usuario) {
     this.amigoSeleccionado = amigo;

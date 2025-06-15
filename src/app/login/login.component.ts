@@ -33,7 +33,6 @@ export class LoginComponent {
     { value: 'SOP', label: 'Soporte Técnico' }
   ];
 
-
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -52,11 +51,10 @@ export class LoginComponent {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      rol: ['', Validators.required],   
+      rol: ['', Validators.required],
       avatar: [null],
     });
 
-    // VALIDACIÓN REACTIVA DE CONTRASEÑA
     this.registerForm.valueChanges.subscribe(() => {
       this.checkPasswordMatch();
     });
@@ -93,36 +91,37 @@ export class LoginComponent {
     }
   }
 
-onRegister() {
-  this.errorMessage = '';
-  this.successMessage = '';
+  onRegister() {
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.fieldErrors = {};
 
-  if (this.registerForm.valid) {
-    const formData = this.registerForm.value;
+    if (this.registerForm.valid) {
+      const formData = this.registerForm.value;
 
-    if (formData.password !== formData.confirm_password) {
-      this.errorMessage = 'Las contraseñas no coinciden.';
-      return;
-    }
+      if (formData.password !== formData.confirm_password) {
+        this.registerForm.get('confirm_password')?.setErrors({ mismatch: true });
+        return;
+      }
 
-    const finalizeSend = (avatarBase64: string | null = null) => {
-      formData.avatar_base64 = avatarBase64;
-      delete formData.avatar;
+      const finalizeSend = (avatarBase64: string | null = null) => {
+        formData.avatar_base64 = avatarBase64;
+        delete formData.avatar;
 
-   
-      this.sendRegister(formData);
-    };
+        this.sendRegister(formData);
+      };
 
-    if (formData.avatar) {
-      const reader = new FileReader();
-      reader.onload = () => finalizeSend(reader.result as string);
-      reader.readAsDataURL(formData.avatar);
+      if (formData.avatar) {
+        const reader = new FileReader();
+        reader.onload = () => finalizeSend(reader.result as string);
+        reader.readAsDataURL(formData.avatar);
+      } else {
+        finalizeSend(null);
+      }
     } else {
-      finalizeSend(null);
+      this.errorMessage = 'Rellena todos los campos correctamente.';
     }
   }
-}
-
 
   onAvatarChange(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -136,7 +135,6 @@ onRegister() {
     this.fieldErrors = {};
     this.errorMessage = '';
     this.successMessage = '';
-    console.log('Formulario a enviar:', formData);
 
     this.http.post(`${environment.apiUrl}/register/`, formData).subscribe({
       next: () => {
@@ -146,13 +144,13 @@ onRegister() {
       },
       error: (err: HttpErrorResponse) => {
         if (err.status === 400 && typeof err.error === 'object') {
-          // Guardamos cada error por campo
           this.fieldErrors = {};
           for (const campo in err.error) {
             if (Array.isArray(err.error[campo])) {
-              this.fieldErrors[campo] = err.error[campo][0]; // Solo el primer error de cada campo
+              this.fieldErrors[campo] = err.error[campo][0];
             }
           }
+          this.errorMessage = 'Corrige los errores del formulario.';
         } else {
           this.errorMessage = this.handleHttpError(err);
         }
@@ -160,6 +158,21 @@ onRegister() {
     });
   }
 
+  mostrarErroresCampo(campo: string): string | null {
+    const control = this.registerForm.get(campo);
+
+    if (this.fieldErrors[campo]) {
+      return this.fieldErrors[campo];
+    }
+
+    if (control && control.touched && control.invalid) {
+      if (control.errors?.['required']) return 'Este campo es obligatorio.';
+      if (campo === 'email' && control.errors?.['email']) return 'Email no válido.';
+      if (campo === 'confirm_password' && control.errors?.['mismatch']) return 'Las contraseñas no coinciden.';
+    }
+
+    return null;
+  }
 
   handleHttpError(err: HttpErrorResponse): string {
     if (err.status === 0) return 'No se pudo conectar con el servidor.';
@@ -170,7 +183,6 @@ onRegister() {
     if (err.status >= 500) return 'Error interno del servidor. Inténtalo más tarde.';
     return 'Error inesperado. Inténtalo de nuevo.';
   }
-
 
   checkPasswordMatch() {
     const password = this.registerForm.get('password')?.value;
