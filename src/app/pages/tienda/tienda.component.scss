@@ -217,6 +217,36 @@
   display: inline-block;
 }
 
+.buscador {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+
+  input {
+    width: 60%;
+    max-width: 500px;
+    padding: 10px 16px;
+    border: 2px solid #00d8ff;
+    border-radius: 6px;
+    background: #111;
+    color: #00d8ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    box-shadow: 0 0 10px #00d8ff55;
+    outline: none;
+    transition: 0.3s;
+
+    &::placeholder {
+      color: #00d8ff88;
+    }
+
+    &:focus {
+      box-shadow: 0 0 15px #00f0ff;
+    }
+  }
+}
+
+
 @keyframes fadeSlideDown {
   from {
     opacity: 0;

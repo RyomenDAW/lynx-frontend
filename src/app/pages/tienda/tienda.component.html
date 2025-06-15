@@ -20,8 +20,13 @@
     <button routerLink="/tienda/crear" class="btn">Crear manualmente</button>
   </div>
 
+
+<div class="buscador">
+  <input type="text" [(ngModel)]="busqueda" placeholder="🔍 Buscar videojuego..." />
+</div>
+
   <div class="lista-videojuegos">
-    <div *ngFor="let juego of videojuegos" class="fila-juego">
+    <div *ngFor="let juego of videojuegosFiltrados()" class="fila-juego">
       <img *ngIf="juego.imagen_portada_base64"
            [src]="juego.imagen_portada_base64"
            alt="Portada"

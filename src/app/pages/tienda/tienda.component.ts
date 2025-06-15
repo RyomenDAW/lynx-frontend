@@ -5,11 +5,11 @@ import { AuthService } from '../../auth/auth.service';
 import { RouterModule } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
 import { environment } from '../../../environments/environment';
-
+import { FormsModule } from '@angular/forms'; //buscador
 @Component({
   selector: 'app-tienda',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './tienda.component.html',
   styleUrls: ['./tienda.component.scss']
 })
@@ -18,6 +18,7 @@ export class TiendaComponent implements OnInit {
   userInfo: any = null;
   successMessage: string | null = null;
   errorMessage: string | null = null;
+  busqueda: string = ''; //buscador
 
   constructor(private http: HttpClient, private authService: AuthService, private cdRef: ChangeDetectorRef) { }
 
@@ -142,4 +143,10 @@ comprarVideojuego(juego: any) {
         });
     }
   }
+
+  videojuegosFiltrados(): any[] {
+    const filtro = this.busqueda.toLowerCase();
+    return this.videojuegos.filter(j => j.titulo.toLowerCase().includes(filtro));
+  }
+
 }
