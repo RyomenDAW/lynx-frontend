@@ -55,15 +55,17 @@ export class CrearVideojuegoComponent {
 
   crearJuego() {
     if (this.juegoForm.valid) {
-      this.http.post(`${environment.apiUrl}/videojuegos/`, this.juegoForm.value).subscribe({
+      const token = localStorage.getItem('access_token');
+      const headers = { Authorization: `Bearer ${token}` };
+
+      this.http.post(`${environment.apiUrl}/videojuegos/`, this.juegoForm.value, { headers }).subscribe({
         next: () => {
           this.successMessage = '✅ Videojuego creado correctamente.';
           this.errorMessage = '';
-
           setTimeout(() => {
             this.juegoForm.reset();
             this.router.navigate(['/tienda']);
-          }, 2000);  // ✅ Espera 2 segundos antes de redirigir
+          }, 2000);
         },
         error: (err) => {
           this.errorMessage = err.error?.error || '❌ Error al crear el videojuego.';
@@ -75,5 +77,6 @@ export class CrearVideojuegoComponent {
       this.successMessage = '';
     }
   }
+
 
 }
