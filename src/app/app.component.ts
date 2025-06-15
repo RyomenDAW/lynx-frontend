@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
       this.authService.fetchUserProfile();
     }
 
-    //  SIEMPRE NOS SUSCRIBIMOS AL CAMBIO
+    // ⏳ SIEMPRE NOS SUSCRIBIMOS AL CAMBIO
     this.authService.user$.subscribe(user => {
       this.userInfo = user;
     });
@@ -44,37 +44,58 @@ export class AppComponent implements OnInit {
     this.authService.logout();
   }
 
-  confirmLogout() {
-    const dialog = document.createElement('dialog');
-    dialog.style.padding = '20px';
-    dialog.style.border = 'none';
-    dialog.style.borderRadius = '10px';
-    dialog.style.background = '#111';
-    dialog.style.color = '#fff';
-    dialog.style.fontFamily = 'Orbitron, sans-serif';
-    dialog.style.boxShadow = '0 0 15pxrgb(26, 80, 83)';
-    dialog.innerHTML = `
-    <h3 style="margin-bottom: 15px;">¿Estás seguro de que deseas cerrar sesión?</h3>
-    <div style="display: flex; justify-content: center; gap: 10px;">
-      <button id="confirmar" style="padding: 8px 16px; background-color: #00f0ff; border: none; color: black; font-weight: bold; border-radius: 5px;">Aceptar</button>
-      <button id="cancelar" style="padding: 8px 16px; background-color: gray; border: none; color: white; border-radius: 5px;">Cancelar</button>
+confirmLogout() {
+  const dialog = document.createElement('dialog');
+  dialog.style.padding = '20px';
+  dialog.style.border = '2px solid #00f0ff'; // BORDE MÁS DESTACADO
+  dialog.style.borderRadius = '12px';
+  dialog.style.background = '#111';
+  dialog.style.color = '#fff';
+  dialog.style.fontFamily = 'Orbitron, sans-serif';
+  dialog.style.boxShadow = '0 0 25px #00f0ff';
+  dialog.style.textAlign = 'center';
+  dialog.innerHTML = `
+    <h3 style="margin-bottom: 20px; font-size: 18px;">¿Estás seguro de que deseas cerrar sesión?</h3>
+    <div style="display: flex; justify-content: center; gap: 12px;">
+      <button id="confirmar" style="
+        padding: 10px 20px;
+        background-color: #00f0ff;
+        border: none;
+        color: black;
+        font-weight: bold;
+        border-radius: 6px;
+        font-family: Orbitron, sans-serif;
+        cursor: pointer;
+        transition: transform 0.2s;
+      ">Aceptar</button>
+      <button id="cancelar" style="
+        padding: 10px 20px;
+        background-color: #666;
+        border: none;
+        color: white;
+        font-family: Orbitron, sans-serif;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      ">Cancelar</button>
     </div>
   `;
 
-    document.body.appendChild(dialog);
-    dialog.showModal();
+  document.body.appendChild(dialog);
+  dialog.showModal();
 
-    dialog.querySelector('#confirmar')?.addEventListener('click', () => {
-      this.logout();
-      dialog.close();
-      dialog.remove();
-    });
+  dialog.querySelector('#confirmar')?.addEventListener('click', () => {
+    this.logout();
+    dialog.close();
+    dialog.remove();
+  });
 
-    dialog.querySelector('#cancelar')?.addEventListener('click', () => {
-      dialog.close();
-      dialog.remove();
-    });
-  }
+  dialog.querySelector('#cancelar')?.addEventListener('click', () => {
+    dialog.close();
+    dialog.remove();
+  });
+}
+
 
 
 
