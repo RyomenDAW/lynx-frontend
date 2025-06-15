@@ -71,7 +71,6 @@
   </div>
 </div>
 
-</div>
 
 
   <!-- MODAL: Poner en venta -->
@@ -157,6 +156,28 @@
     <h3>¿Eliminar {{ itemAEliminar?.eliminarCantidad }} de "{{ itemAEliminar?.item?.nombre }}"?</h3>
     <div class="botones-principales">
       <button style="background-color: #ff0040;" (click)="confirmarEliminarDesdeInventario()">Eliminar</button>
+      <button style="background-color: gray; color: white;" (click)="cerrarModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRMACIÓN: ELIMINAR ITEM (ADMIN) -->
+<div class="modal" *ngIf="modalAbierto === 'confirmar_eliminar_item_admin'">
+  <div class="modal-contenido">
+    <h3>¿Eliminar este ítem permanentemente del sistema?</h3>
+    <div class="botones-principales">
+      <button style="background-color: #ff0040;" (click)="confirmarEliminarItem()">Eliminar</button>
+      <button style="background-color: gray; color: white;" (click)="cerrarModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRMACIÓN: ELIMINAR ÍTEM DE LA TIENDA -->
+<div class="modal" *ngIf="modalAbierto === 'confirmar_eliminar_item_en_venta'">
+  <div class="modal-contenido">
+    <h3>¿Eliminar este ítem de la tienda?</h3>
+    <div class="botones-principales">
+      <button style="background-color: #ff0040;" (click)="confirmarEliminarItemEnVenta()">Eliminar</button>
       <button style="background-color: gray; color: white;" (click)="cerrarModal()">Cancelar</button>
     </div>
   </div>

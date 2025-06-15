@@ -14,6 +14,9 @@ import { environment } from '../../../environments/environment';
 })
 export class MarketplaceComponent {
 
+  // ================================================================
+  // VARIABLES DE ESTADO Y FORMULARIO
+  // ================================================================
   marketplaceItems: any[] = [];
   userItems: any[] = [];
   allItems: any[] = [];
@@ -37,7 +40,9 @@ export class MarketplaceComponent {
 
   modalAbierto: string | null = null;
   itemAEliminar: any = null;
-
+  // ================================================================
+  // CONSTRUCTOR Y ONINIT
+  // ================================================================
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -54,6 +59,11 @@ export class MarketplaceComponent {
       this.cargarAllItems();
     }
   }
+
+
+  // ================================================================
+  // MÉTODOS DE CARGA Y MOSTRAR MENSAJE
+  // ================================================================
 
   mostrarMensaje(info: string, isError = false) {
     if (isError) {
@@ -101,6 +111,14 @@ export class MarketplaceComponent {
       });
   }
 
+
+
+
+
+  // ================================================================
+  // COMPRAR Y VENDER
+  // ================================================================
+
   comprarItem(itemEnVentaId: number): void {
     const headers = this.authHeaders();
     this.http.post(`${environment.apiUrl}/marketplace/${itemEnVentaId}/comprar/`, {}, { headers })
@@ -139,6 +157,11 @@ export class MarketplaceComponent {
       });
   }
 
+
+  // ================================================================
+  // CRUD DE ÍTEMS (ADMIN)
+  // ================================================================
+
   crearItem(): void {
     if (!this.nuevoNombre || !this.nuevoDescripcion || !this.nuevoRareza || !this.nuevoImagenBase64) {
       this.mostrarMensaje('❌ Completa todos los campos del formulario.', true);
@@ -175,69 +198,98 @@ export class MarketplaceComponent {
   }
 
   eliminarItem(itemId: number): void {
-    if (!confirm('¿Eliminar ítem?')) return;
+    this.itemAEliminar = { id: itemId };
+    this.modalAbierto = 'confirmar_eliminar_item_admin';
+  }
+
+
+  confirmarEliminarItem(): void {
+    const itemId = this.itemAEliminar?.id;
+    if (!itemId) return;
+
     const headers = this.authHeaders();
 
     this.http.delete(`${environment.apiUrl}/items/${itemId}/`, { headers })
       .subscribe({
         next: () => {
           this.mostrarMensaje('✅ Ítem eliminado correctamente');
-          this.cargarAllItems();      // ACTUALIZA ADMIN
-          this.cargarMarketplace();   // ACTUALIZA VISTA GLOBAL
-          this.cargarUserItems();     // ACTUALIZA INVENTARIO PROPIO
+          this.modalAbierto = null;
+          this.itemAEliminar = null;
+          this.cargarAllItems();
+          this.cargarMarketplace();
+          this.cargarUserItems();
         },
-        error: () => this.mostrarMensaje('❌ Error al eliminar ítem', true)
+        error: () => {
+          this.mostrarMensaje('❌ Error al eliminar ítem', true);
+        }
       });
   }
 
+  // ================================================================
+  // ELIMINAR ITEM EN VENTA (USUARIO)
+  // ================================================================
 
   eliminarItemEnVenta(itemEnVentaId: number): void {
-    if (!confirm('¿Eliminar ítem de la tienda?')) return;
+    this.itemAEliminar = { id: itemEnVentaId };
+    this.modalAbierto = 'confirmar_eliminar_item_en_venta';
+  }
+
+
+  confirmarEliminarItemEnVenta(): void {
+    const id = this.itemAEliminar?.id;
+    if (!id) return;
+
     const headers = this.authHeaders();
 
-    this.http.delete(`${environment.apiUrl}/marketplace-venta/${itemEnVentaId}/`, { headers })
+    this.http.delete(`${environment.apiUrl}/marketplace-venta/${id}/`, { headers })
       .subscribe({
         next: () => {
           this.mostrarMensaje('✅ Ítem eliminado de la tienda correctamente');
+          this.modalAbierto = null;
+          this.itemAEliminar = null;
           this.cargarMarketplace();
           this.cargarUserItems();
           this.cargarAllItems(); // NECESARIO PARA REFRESCAR ADMIN
         },
-        error: () => this.mostrarMensaje('❌ Error al eliminar ítem de la tienda', true)
+        error: () => {
+          this.mostrarMensaje('❌ Error al eliminar ítem de la tienda', true);
+        }
       });
   }
 
+  // ================================================================
+  // UTILIDADES Y MODALES
+  // ================================================================
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (!file) return;
 
-  eliminarCantidadItem(entry: any): void {
-    const cantidad = entry.eliminarCantidad;
-    if (!cantidad || cantidad <= 0) {
-      this.mostrarMensaje('❌ Introduce una cantidad válida.', true);
-      return;
-    }
-
-    if (cantidad > entry.cantidad) {
-      this.mostrarMensaje('❌ No puedes eliminar más de lo que tienes.', true);
-      return;
-    }
-
-    if (!confirm(`¿Eliminar ${cantidad} de "${entry.item.nombre}"?`)) return;
-
-    const headers = this.authHeaders();
-    const body = {
-      item_id: entry.item.id,
-      cantidad: cantidad
-    };
-
-    this.http.post(`${environment.apiUrl}/inventario/eliminar_item/`, body, { headers })
-      .subscribe({
-        next: () => {
-          this.mostrarMensaje(`✅ Se eliminó correctamente "${entry.item.nombre}"`);
-          this.cargarUserItems();
-        },
-        error: () => this.mostrarMensaje('❌ Error al eliminar ítem.', true)
-      });
+    const reader = new FileReader();
+    reader.onload = (e: any) => this.nuevoImagenBase64 = e.target.result;
+    reader.readAsDataURL(file);
   }
 
+  abrirModal(tipo: string, item: any = null): void {
+    this.modalAbierto = tipo;
+    this.itemAEliminar = tipo === 'eliminar' ? item : null;
+    if (this.itemAEliminar && !this.itemAEliminar.eliminarCantidad) {
+      this.itemAEliminar.eliminarCantidad = 1;
+    }
+  }
+
+  cerrarModal(): void {
+    this.modalAbierto = null;
+    this.itemAEliminar = null;
+  }
+
+  private authHeaders(): HttpHeaders {
+    const token = localStorage.getItem('access_token') || '';
+    return new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+  }
+
+  // ================================================================
+  // ASIGNACIÓN DE ÍTEMS
+  // ================================================================
   asignarItemASiMismo(itemId: number): void {
     const headers = this.authHeaders();
     const body = {
@@ -285,65 +337,76 @@ export class MarketplaceComponent {
       });
   }
 
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (e: any) => this.nuevoImagenBase64 = e.target.result;
-    reader.readAsDataURL(file);
-  }
-
-  abrirModal(tipo: string, item: any = null): void {
-    this.modalAbierto = tipo;
-    this.itemAEliminar = tipo === 'eliminar' ? item : null;
-    if (this.itemAEliminar && !this.itemAEliminar.eliminarCantidad) {
-      this.itemAEliminar.eliminarCantidad = 1;
-    }
-  }
-
-  cerrarModal(): void {
-    this.modalAbierto = null;
-    this.itemAEliminar = null;
-  }
-
-  private authHeaders(): HttpHeaders {
-    const token = localStorage.getItem('access_token') || '';
-    return new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-  }
-
+  // ================================================================
+  // ELIMINAR CANTIDAD DESDE INVENTARIO (MODAL)
+  // ================================================================
   abrirConfirmacionEliminarCantidad(entry: any): void {
-  this.itemAEliminar = entry;
-  this.modalAbierto = 'confirmar_eliminar_inventario';
-}
-
-confirmarEliminarDesdeInventario(): void {
-  const entry = this.itemAEliminar;
-  const cantidad = entry?.eliminarCantidad;
-
-  if (!cantidad || cantidad <= 0) {
-    this.mostrarMensaje('❌ Introduce una cantidad válida.', true);
-    return;
+    this.itemAEliminar = entry;
+    this.modalAbierto = 'confirmar_eliminar_inventario';
   }
 
-  const headers = this.authHeaders();
-  const body = {
-    item_id: entry.item.id,
-    cantidad: cantidad
-  };
+  confirmarEliminarDesdeInventario(): void {
+    const entry = this.itemAEliminar;
+    const cantidad = entry?.eliminarCantidad;
 
-  this.http.post(`${environment.apiUrl}/inventario/eliminar_item/`, body, { headers })
-    .subscribe({
-      next: () => {
-        this.mostrarMensaje(`✅ Se eliminó correctamente ${cantidad} de "${entry.item.nombre}"`);
-        this.cerrarModal(); // CIERRA confirmación y el modal principal
-        this.cargarUserItems();
-      },
-      error: () => {
-        this.mostrarMensaje('❌ Error al eliminar ítem.', true);
-      }
-    });
-}
+    if (!cantidad || cantidad <= 0) {
+      this.mostrarMensaje('❌ Introduce una cantidad válida.', true);
+      return;
+    }
 
+    const headers = this.authHeaders();
+    const body = {
+      item_id: entry.item.id,
+      cantidad: cantidad
+    };
 
+    this.http.post(`${environment.apiUrl}/inventario/eliminar_item/`, body, { headers })
+      .subscribe({
+        next: () => {
+          this.mostrarMensaje(`✅ Se eliminó correctamente ${cantidad} de "${entry.item.nombre}"`);
+          this.modalAbierto = null;
+          this.itemAEliminar = null;
+          this.cargarUserItems();
+        },
+        error: () => {
+          this.mostrarMensaje('❌ Error al eliminar ítem.', true);
+        }
+      });
+  }
+
+  eliminarCantidadItem(entry: any): void {
+    const cantidad = entry.eliminarCantidad;
+    if (!cantidad || cantidad <= 0) {
+      this.mostrarMensaje('❌ Introduce una cantidad válida.', true);
+      return;
+    }
+
+    if (cantidad > entry.cantidad) {
+      this.mostrarMensaje('❌ No puedes eliminar más de lo que tienes.', true);
+      return;
+    }
+
+    const headers = this.authHeaders();
+    const body = {
+      item_id: entry.item.id,
+      cantidad: cantidad
+    };
+
+    this.http.post(`${environment.apiUrl}/inventario/eliminar_item/`, body, { headers })
+      .subscribe({
+        next: () => {
+          this.mostrarMensaje(`✅ Se eliminó correctamente "${entry.item.nombre}"`);
+          this.cargarUserItems();
+        },
+        error: () => this.mostrarMensaje('❌ Error al eliminar ítem.', true)
+      });
+  }
+
+  // ================================================================
+  // ELIMINAR ITEM DESDE TIENDA (MODAL)
+  // ================================================================
+  abrirConfirmacionEliminarDeTienda(itemId: number): void {
+    this.itemAEliminar = { id: itemId };
+    this.modalAbierto = 'confirmar_eliminar_tienda';
+  }
 }
