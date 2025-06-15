@@ -311,4 +311,39 @@ export class MarketplaceComponent {
     const token = localStorage.getItem('access_token') || '';
     return new HttpHeaders({ 'Authorization': `Bearer ${token}` });
   }
+
+  abrirConfirmacionEliminarCantidad(entry: any): void {
+  this.itemAEliminar = entry;
+  this.modalAbierto = 'confirmar_eliminar_inventario';
+}
+
+confirmarEliminarDesdeInventario(): void {
+  const entry = this.itemAEliminar;
+  const cantidad = entry?.eliminarCantidad;
+
+  if (!cantidad || cantidad <= 0) {
+    this.mostrarMensaje('❌ Introduce una cantidad válida.', true);
+    return;
+  }
+
+  const headers = this.authHeaders();
+  const body = {
+    item_id: entry.item.id,
+    cantidad: cantidad
+  };
+
+  this.http.post(`${environment.apiUrl}/inventario/eliminar_item/`, body, { headers })
+    .subscribe({
+      next: () => {
+        this.mostrarMensaje(`✅ Se eliminó correctamente ${cantidad} de "${entry.item.nombre}"`);
+        this.cerrarModal(); // CIERRA confirmación y el modal principal
+        this.cargarUserItems();
+      },
+      error: () => {
+        this.mostrarMensaje('❌ Error al eliminar ítem.', true);
+      }
+    });
+}
+
+
 }

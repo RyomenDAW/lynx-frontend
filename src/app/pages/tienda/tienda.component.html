@@ -55,7 +55,6 @@
 
         <div class="juego-botones">
           <button class="btn-secundario" [routerLink]="['/tienda/detalle', juego.id]">Detalles</button>
-          <button class="btn-secundario">Reseña</button>
           <button class="btn-accion" [disabled]="juego.comprado" (click)="comprarVideojuego(juego)">
             {{ juego.comprado ? 'Ya lo tienes' : 'Comprar' }}
           </button>
