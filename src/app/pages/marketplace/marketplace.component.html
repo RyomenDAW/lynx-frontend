@@ -42,6 +42,7 @@
       <button (click)="eliminarItemEnVenta(entry.id)">Eliminar de la tienda</button>
     </div>
   </ng-container>
+
   <!-- MODAL: Ver mis ítems -->
 <div class="modal" *ngIf="modalAbierto === 'inventory'">
   <div class="modal-contenido">
@@ -63,7 +64,7 @@
         <div style="margin-top: 10px;">
           <label>Eliminar cantidad:</label>
           <input type="number" [(ngModel)]="entry.eliminarCantidad" min="1" [max]="entry.cantidad">
-          <button (click)="eliminarCantidadItem(entry)">Eliminar</button>
+          <button (click)="abrirConfirmacionEliminarCantidad(entry)">Eliminar</button>
         </div>
       </div>
     </div>
@@ -146,6 +147,17 @@
           <button (click)="eliminarItem(item.id)">Eliminar ítem</button>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE CONFIRMACIÓN PARA INVENTARIO -->
+<div class="modal" *ngIf="modalAbierto === 'confirmar_eliminar_inventario'">
+  <div class="modal-contenido">
+    <h3>¿Eliminar {{ itemAEliminar?.eliminarCantidad }} de "{{ itemAEliminar?.item?.nombre }}"?</h3>
+    <div class="botones-principales">
+      <button style="background-color: #ff0040;" (click)="confirmarEliminarDesdeInventario()">Eliminar</button>
+      <button style="background-color: gray; color: white;" (click)="cerrarModal()">Cancelar</button>
     </div>
   </div>
 </div>
