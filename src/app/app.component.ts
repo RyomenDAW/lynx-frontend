@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
       this.authService.fetchUserProfile();
     }
 
-    // ⏳ SIEMPRE NOS SUSCRIBIMOS AL CAMBIO
+    //  SIEMPRE NOS SUSCRIBIMOS AL CAMBIO
     this.authService.user$.subscribe(user => {
       this.userInfo = user;
     });
@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
     dialog.style.background = '#111';
     dialog.style.color = '#fff';
     dialog.style.fontFamily = 'Orbitron, sans-serif';
-    dialog.style.boxShadow = '0 0 15px #00f0ff';
+    dialog.style.boxShadow = '0 0 15pxrgb(26, 80, 83)';
     dialog.innerHTML = `
     <h3 style="margin-bottom: 15px;">¿Estás seguro de que deseas cerrar sesión?</h3>
     <div style="display: flex; justify-content: center; gap: 10px;">

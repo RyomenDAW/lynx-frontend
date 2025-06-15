@@ -1,7 +1,7 @@
 <div class="login-container">
   <h2 class="text-center mb-4">{{ isRegisterMode ? 'Registro en Lynx' : 'Iniciar Sesión en Lynx' }}</h2>
 
-  <!-- FORMULARIO LOGIN -->
+  <!-- FORMULARIO DEL LOGIN -->
   <form *ngIf="!isRegisterMode" [formGroup]="loginForm" (ngSubmit)="onLogin()">
     <input type="text" formControlName="username" placeholder="Usuario" class="form-control mb-2" />
     <input type="password" formControlName="password" placeholder="Contraseña" class="form-control mb-2" />

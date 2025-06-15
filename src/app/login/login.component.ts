@@ -181,7 +181,7 @@ export class LoginComponent {
     if (err.status === 403) return 'No tienes permisos para acceder.';
     if (err.status === 404) return 'Recurso no encontrado.';
     if (err.status >= 500) return 'Error interno del servidor. Inténtalo más tarde.';
-    return 'Error inesperado. Inténtalo de nuevo.';
+    return 'Error inesperado, por favor inténtalo de nuevo.';
   }
 
   checkPasswordMatch() {
