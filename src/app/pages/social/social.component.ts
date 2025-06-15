@@ -55,35 +55,84 @@ export class SocialComponent implements OnInit {
   }
 
 
-aceptarSolicitud(id: number) {
-  this.socialService.aceptarSolicitud(id).subscribe(() => {
-    this.recargarDatos();
-    this.mensajeInfo = '✅ Solicitud aceptada correctamente.';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(() => this.mensajeInfo = null, 4000);
-  });
-}
+  aceptarSolicitud(id: number) {
+    this.socialService.aceptarSolicitud(id).subscribe(() => {
+      this.recargarDatos();
+      this.mensajeInfo = '✅ Solicitud aceptada correctamente.';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => this.mensajeInfo = null, 4000);
+    });
+  }
 
 
-rechazarSolicitud(id: number) {
-  this.socialService.rechazarSolicitud(id).subscribe(() => {
-    this.recargarDatos();
-    this.mensajeInfo = '❌ Solicitud rechazada.';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(() => this.mensajeInfo = null, 4000);
-  });
-}
+  rechazarSolicitud(id: number) {
+    this.socialService.rechazarSolicitud(id).subscribe(() => {
+      this.recargarDatos();
+      this.mensajeInfo = '❌ Solicitud rechazada.';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => this.mensajeInfo = null, 4000);
+    });
+  }
 
   eliminarAmigo(id: number) {
-    if (confirm('¿Eliminar amigo?')) {
+    const dialog = document.createElement('dialog');
+    dialog.style.padding = '20px';
+    dialog.style.border = '2px solid #00f0ff';
+    dialog.style.borderRadius = '12px';
+    dialog.style.background = '#111';
+    dialog.style.color = '#fff';
+    dialog.style.fontFamily = 'Orbitron, sans-serif';
+    dialog.style.boxShadow = '0 0 20px #00f0ff';
+    dialog.style.textAlign = 'center';
+    dialog.style.width = '400px';
+    dialog.innerHTML = `
+    <h3 style="margin-bottom: 15px; font-size: 18px;">¿Estás seguro de que deseas eliminar a este amigo?</h3>
+    <div style="display: flex; justify-content: center; gap: 12px;">
+      <button id="confirmar" style="
+        padding: 10px 20px;
+        background-color: #00f0ff;
+        border: none;
+        color: black;
+        font-weight: bold;
+        border-radius: 6px;
+        font-family: Orbitron, sans-serif;
+        cursor: pointer;
+        transition: transform 0.2s;
+      ">Eliminar</button>
+      <button id="cancelar" style="
+        padding: 10px 20px;
+        background-color: #666;
+        border: none;
+        color: white;
+        font-family: Orbitron, sans-serif;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      ">Cancelar</button>
+    </div>
+  `;
+
+    document.body.appendChild(dialog);
+    dialog.showModal();
+
+    dialog.querySelector('#confirmar')?.addEventListener('click', () => {
       this.socialService.eliminarAmigo(id).subscribe(() => {
         this.recargarDatos();
-        this.mensajeInfo = '✅ Amigo eliminado correctamente.';
+        this.mensajeInfo = '❌ Amigo eliminado correctamente.';
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => this.mensajeInfo = null, 4000);
       });
-    }
+
+      dialog.close();
+      dialog.remove();
+    });
+
+    dialog.querySelector('#cancelar')?.addEventListener('click', () => {
+      dialog.close();
+      dialog.remove();
+    });
   }
+
 
 
   esAmigo(id: number): boolean {

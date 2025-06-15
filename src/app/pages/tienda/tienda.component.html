@@ -1,58 +1,46 @@
 <div class="tienda-container page fade-in">
-
-<!--  ALERTA ÉXITO -->
-<div *ngIf="successMessage"
-     class="notificacion-flotante exito">
-  {{ successMessage }}
-</div>
-
-<!--  ALERTA ERROR -->
-<div *ngIf="errorMessage"
-     class="notificacion-flotante error">
-  {{ errorMessage }}
-</div>
-
-
-  <h2 class="titulo-seccion">Lynx Store - Videojuegos</h2>
-
-  <div *ngIf="tienePermiso()" class="acciones-superior">
-    <button routerLink="/tienda/importar" class="btn">Importar desde Steam</button>
-    <button routerLink="/tienda/crear" class="btn">Crear manualmente</button>
-  </div>
-
-
-<div class="buscador">
-  <input type="text" [(ngModel)]="busqueda" placeholder="🔍 Buscar videojuego..." />
-</div>
-
-  <div class="lista-videojuegos">
-    <div *ngFor="let juego of videojuegosFiltrados()" class="fila-juego">
-      <img *ngIf="juego.imagen_portada_base64"
-           [src]="juego.imagen_portada_base64"
-           alt="Portada"
-           class="juego-portada" />
-
-      <div class="juego-info">
-        <div class="juego-header">
-          <h3 class="juego-titulo">{{ juego.titulo }}</h3>
-          <span class="juego-precio">{{ juego.precio }} €</span>
-        </div>
-
-        <p class="juego-descripcion">{{ juego.descripcion }}</p>
-
-        <div class="juego-botones">
-          <button class="btn-secundario" [routerLink]="['/tienda/detalle', juego.id]">Detalles</button>
-          <button class="btn-secundario">Reseña</button>
-          <button class="btn-accion"
-                  [disabled]="juego.comprado"
-                  (click)="comprarVideojuego(juego)">
-            {{ juego.comprado ? 'Ya lo tienes' : 'Comprar' }}
-          </button>
-          <button *ngIf="tienePermiso()" 
-                  (click)="eliminarJuego(juego.id)" 
-                  class="btn-eliminar">Eliminar</button>
-        </div>
-      </div>
+    <!--  ALERTA ÉXITO -->
+    <div *ngIf="successMessage" class="notificacion-flotante exito">
+        {{ successMessage }}
     </div>
-  </div>
+
+    <!--  ALERTA ERROR -->
+    <div *ngIf="errorMessage" class="notificacion-flotante error">
+        {{ errorMessage }}
+    </div>
+
+    <div class="buscador">
+        <input type="text" [(ngModel)]="busqueda" placeholder="🔍 Buscar videojuego..." />
+    </div>
+
+    <h2 class="titulo-seccion">Lynx Store - Videojuegos</h2>
+
+    <div *ngIf="tienePermiso()" class="acciones-superior">
+        <button routerLink="/tienda/importar" class="btn">Importar desde Steam</button>
+        <button routerLink="/tienda/crear" class="btn">Crear manualmente</button>
+    </div>
+
+    <div class="lista-videojuegos">
+        <div *ngFor="let juego of videojuegosFiltrados()" class="fila-juego">
+            <img *ngIf="juego.imagen_portada_base64" [src]="juego.imagen_portada_base64" alt="Portada" class="juego-portada" />
+
+            <div class="juego-info">
+                <div class="juego-header">
+                    <h3 class="juego-titulo">{{ juego.titulo }}</h3>
+                    <span class="juego-precio">{{ juego.precio }} €</span>
+                </div>
+
+                <p class="juego-descripcion">{{ juego.descripcion }}</p>
+
+                <div class="juego-botones">
+                    <button class="btn-secundario" [routerLink]="['/tienda/detalle', juego.id]">Detalles</button>
+                    <button class="btn-secundario">Reseña</button>
+                    <button class="btn-accion" [disabled]="juego.comprado" (click)="comprarVideojuego(juego)">
+                        {{ juego.comprado ? 'Ya lo tienes' : 'Comprar' }}
+                    </button>
+                    <button *ngIf="tienePermiso()" (click)="eliminarJuego(juego.id)" class="btn-eliminar">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
