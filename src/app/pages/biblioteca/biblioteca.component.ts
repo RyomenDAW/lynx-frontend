@@ -25,6 +25,7 @@ export class BibliotecaComponent implements OnInit, OnDestroy {
   juegoEnCurso: any = null;                          // JUEGO ACTUAL EN USO
   inicioSesionActual: number | null = null;          // CUÁNDO EMPEZÓ
   usuarioJugando: string | null = null;              // ESTADO DE PERFIL GLOBAL
+  cargando: boolean = true;
 
   constructor(private bibliotecaService: BibliotecaService) { }
 
@@ -37,14 +38,18 @@ export class BibliotecaComponent implements OnInit, OnDestroy {
     this.finalizarSesionEnCurso();
   }
 
-  cargarBiblioteca() {
-    this.bibliotecaService.getBiblioteca().subscribe(data => {
+cargarBiblioteca() {
+  this.cargando = true; // ACTIVAMOS EL ESQUELETO
+
+  this.bibliotecaService.getBiblioteca().subscribe({
+    next: (data) => {
       this.biblioteca = data.map(juego => ({
         ...juego,
         minutosPersonalizados: 15
       }));
       this.aplicarFiltros();
-      // ✅ RECUPERAR JUEGO ACTIVO SI EXISTE EN LOCALSTORAGE
+
+      // RECUPERAR JUEGO ACTIVO SI EXISTE EN LOCALSTORAGE
       const idJuegoActivo = localStorage.getItem('juego_en_curso_id');
       const inicioSesionGuardado = localStorage.getItem('inicio_sesion_actual');
 
@@ -57,8 +62,16 @@ export class BibliotecaComponent implements OnInit, OnDestroy {
         }
       }
 
-    });
-  }
+      this.cargando = false; // DESACTIVAMOS EL ESQUELETO
+    },
+    error: (err) => {
+      console.error('Error al cargar la biblioteca:', err);
+      this.cargando = false; // AUNQUE FALLE, DESACTIVAMOS EL LOADER
+      this.mostrarMensaje('error', 'Error al cargar la biblioteca.');
+    }
+  });
+}
+
 
   aplicarFiltros() {
     const nombreLower = this.filtroNombre.toLowerCase();
@@ -120,9 +133,38 @@ export class BibliotecaComponent implements OnInit, OnDestroy {
     });
   }
 
-  confirmarEliminacion(juego: JuegoBiblioteca) {
+confirmarEliminacion(juego: JuegoBiblioteca) {
+  const dialog = document.createElement('dialog');
+  dialog.style.padding = '20px';
+  dialog.style.border = '2px solid red';
+  dialog.style.borderRadius = '12px';
+  dialog.style.background = '#111';
+  dialog.style.color = 'white';
+  dialog.style.fontFamily = 'Orbitron, sans-serif';
+  dialog.style.boxShadow = '0 0 20px #ff0040aa';
+  dialog.innerHTML = `
+    <h3 style="margin-bottom: 20px;">¿Eliminar "${juego.juego.titulo}" de tu biblioteca?</h3>
+    <div style="display: flex; justify-content: center; gap: 20px;">
+      <button id="confirmar" style="padding: 10px 20px; background-color: #ff0040; color: white; border: none; border-radius: 6px; font-family: Orbitron;">Eliminar</button>
+      <button id="cancelar" style="padding: 10px 20px; background-color: gray; color: white; border: none; border-radius: 6px; font-family: Orbitron;">Cancelar</button>
+    </div>
+  `;
+
+  document.body.appendChild(dialog);
+  dialog.showModal();
+
+  dialog.querySelector('#confirmar')?.addEventListener('click', () => {
     this.eliminarJuego(juego);
-  }
+    dialog.close();
+    dialog.remove();
+  });
+
+  dialog.querySelector('#cancelar')?.addEventListener('click', () => {
+    dialog.close();
+    dialog.remove();
+  });
+}
+
 
   mostrarMensaje(tipo: 'success' | 'error', mensaje: string) {
     if (tipo === 'success') {

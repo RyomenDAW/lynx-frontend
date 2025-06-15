@@ -2,7 +2,6 @@
 <div *ngIf="successMessage" class="notificacion notificacion-exito">{{ successMessage }}</div>
 <div *ngIf="errorMessage" class="notificacion notificacion-error">{{ errorMessage }}</div>
 
-
 <div class="biblioteca page fade-in">
   <h1>Tu Biblioteca</h1>
 
@@ -25,8 +24,24 @@
     </label>
   </div>
 
-  <!-- 🕹️ LISTA DE JUEGOS -->
-  <div class="juegos-grid">
+  <!-- 🕹️ SKELETON MIENTRAS CARGA -->
+  <div *ngIf="cargando" class="juegos-grid">
+    <div class="juego-card skeleton" *ngFor="let s of [1,2,3,4]">
+      <div class="skeleton-img"></div>
+      <div class="juego-info">
+        <div class="skeleton-text titulo"></div>
+        <div class="skeleton-text descripcion"></div>
+        <div class="skeleton-botones">
+          <div class="skeleton-btn"></div>
+          <div class="skeleton-btn"></div>
+          <div class="skeleton-btn eliminar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🕹️ LISTA DE JUEGOS REAL -->
+  <div class="juegos-grid" *ngIf="!cargando">
     <div class="juego-card" *ngFor="let juego of bibliotecaFiltrada">
       <img [src]="juego.juego.imagen_portada_base64" alt="{{ juego.juego.titulo }}">
       <div class="juego-info">
